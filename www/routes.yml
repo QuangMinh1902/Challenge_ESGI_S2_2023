@@ -1,0 +1,83 @@
+/:
+  controller: Layout
+  action: index
+
+/admin/dashboard/index:
+  controller: Dashboard
+  action: index
+
+/admin/user/index:
+  controller: User_Controller
+  action: index
+
+/admin/user/insert:
+  controller: User_Controller
+  action: insert
+
+/admin/user/update:
+  controller: User_Controller
+  action: update
+
+/admin/user/delete:
+  controller: User_Controller
+  action: delete
+
+/admin/user/status:
+  controller: User_Controller
+  action: status
+
+/admin/category/index:
+  controller: Category
+  action: index
+
+/admin/category/insert:
+  controller: Category
+  action: insert
+
+/admin/category/update:
+  controller: Category
+  action: update
+
+/admin/category/delete:
+  controller: Category
+  action: delete
+
+/admin/post/index:
+  controller: Post
+  action: index
+
+/admin/post/insert:
+  controller: Post
+  action: insert
+
+/admin/post/update:
+  controller: Post
+  action: update
+
+/admin/post/delete:
+  controller: Post
+  action: delete
+
+# /admin/post/index:
+#   controller: Main
+#   action: post
+
+# /contact:
+#   controller: Main
+#   action: contact
+
+/login:
+  controller: User_Controller
+  action: login
+
+/processlogin:
+  controller: User_Controller
+  action: processlogin
+
+# /logout:
+#   controller: Security
+#   action: logout
+
+/register:
+  controller: Security
+  action: register
