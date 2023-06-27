@@ -5,6 +5,10 @@ use App\Forms\FormUser;
 use App\Models\User;
 use App\Core\Verificator;
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 class User_Controller {
     private $folder;
 
@@ -28,7 +32,6 @@ class User_Controller {
         // end
 
         $actual_link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP_HOST]";
-        
         if($form->isSubmit())
         {
             $firstname = $_POST["firstname"];
@@ -36,20 +39,19 @@ class User_Controller {
             $email = $_POST["email"];
             $pwd = $_POST["pwd"];
             $pwdConfirm = $_POST["pwdConfirm"];
-
-            $user = new User();
-
-            $user->setFirstname($firstname);
-            $user->setLastname($lastname);
-            $user->setEmail($email);
-            $user->setPassword($pwd);
-            // print_r($user);die;
-
-
-            $user->save();
-
-            header('Location: '.$actual_link.'/admin/'.strtolower($this->folder).'/index');
-            exit();
+            if($pwd == $pwdConfirm){
+                $user = new User();
+                $user->setFirstname($firstname);
+                $user->setLastname($lastname);
+                $user->setEmail($email);
+                $user->setPassword($pwd);
+    
+                $user->save();
+                header('Location: '.$actual_link.'/admin/'.strtolower($this->folder).'/index');
+                exit();
+            }else{
+                echo "<script> alert('password does not match') </script>";
+            }
         }
     }
 
@@ -59,7 +61,7 @@ class User_Controller {
         $user = new User();
         $user->setId($_GET['id']);
         $row = $user->getDetail();
-
+        
         $view = new View($this->folder."/form", "back");
         $view->assign('form', $form->getConfig($row));
 
@@ -86,7 +88,7 @@ class User_Controller {
         $user = new User();
         $user->setId($_POST["id"]);
     
-        $result = (count($user->getDetail()) == 0) ? 'Dữ liệu không tồn tại.' : '';
+        $result = (count($user->getDetail()) == 0) ? 'Data doesn\'t exist.' : '';
         $user->delete();
 
         echo $result;
@@ -96,7 +98,7 @@ class User_Controller {
         $user = new User();
         $user->setId($_POST["id"]);
     
-        $result = (count($user->getDetail()) == 0) ? 'Dữ liệu không tồn tại.' : '';
+        $result = (count($user->getDetail()) == 0) ? 'Data doesn\'t exist.' : '';
         
         $user->setStatus(strtoupper($_POST['status']));
         $user->status();

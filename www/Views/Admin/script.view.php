@@ -74,7 +74,7 @@
                     }
                     else{
                         $('.alert').addClass('alert-success');
-                        $('.alert').text('Đã xoá');
+                        $('.alert').text('removed');
                         $('#tr_'+id).remove();
                     }
                     setTimeout(() => { $('.alert').hide() }, 5000);
@@ -100,7 +100,7 @@
                     }
                     else{
                         $('.alert').addClass('alert-success');
-                        $('.alert').text('Đã cập nhật');
+                        $('.alert').text('updated');
                         setTimeout(() => { $('.alert').hide() }, 5000);
                     }
                 }
