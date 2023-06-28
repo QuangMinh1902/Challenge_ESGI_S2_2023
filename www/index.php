@@ -30,11 +30,11 @@ $routes = yaml_parse_file("routes.yml");
 
 //Page 404
 if (empty($routes[$uri])) {
-    die("Page 404");
+    \App\Core\Error::Show404();
 }
 
 if (empty($routes[$uri]["controller"]) || empty($routes[$uri]["action"])) {
-    die("Absence de controller ou d'action dans le ficher de routing pour la route " . $uri);
+    \App\Core\Error::Show404();
 }
 
 $controller = $routes[$uri]["controller"];
