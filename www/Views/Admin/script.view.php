@@ -16,12 +16,14 @@
     $(document).ready(function() {
         checkCookie();
     });
+
     function setCookie(cname, cvalue, exdays) {
         var d = new Date();
         d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
         var expires = "expires=" + d.toGMTString();
         document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
     }
+
     function getCookie(cname) {
         var name = cname + "=";
         var decodedCookie = decodeURIComponent(document.cookie);
@@ -37,10 +39,11 @@
         }
         return "";
     }
+
     function checkCookie() {
         var ticks = getCookie("modelopen");
         if (ticks != "") {
-            ticks++ ;
+            ticks++;
             setCookie("modelopen", ticks, 1);
             if (ticks == "2" || ticks == "1" || ticks == "0") {
                 $('#exampleModalCenter').modal();
@@ -59,49 +62,60 @@
         $('#returnName').text(name);
         $('#getId').val(id);
     }
+
     function script_delete() {
         const id = $('#getId').val();
-        if(id){
+        if (id) {
             $.ajax({
                 url: 'http://localhost/admin/user/delete',
                 type: 'POST',
-                data: { id },
-                success: function (result) {
+                data: {
+                    id
+                },
+                success: function(result) {
                     $('.alert').show();
-                    if(result != ''){
+                    if (result != '') {
                         $('.alert').addClass('alert-warning');
                         $('.alert').text(result);
-                    }
-                    else{
+                    } else {
                         $('.alert').addClass('alert-success');
                         $('.alert').text('removed');
-                        $('#tr_'+id).remove();
+                        $('#tr_' + id).remove();
                     }
-                    setTimeout(() => { $('.alert').hide() }, 5000);
+                    setTimeout(() => {
+                        $('.alert').hide()
+                    }, 5000);
                 }
             })
             return false;
         }
         return;
     }
+
     function script_status(id) {
-        const status = $('.status_'+id).prop( "checked" )
-        if(id){
+        const status = $('.status_' + id).prop("checked")
+        if (id) {
             $.ajax({
                 url: 'http://localhost/admin/user/status',
                 type: 'POST',
-                data: { id, status },
-                success: function (result) {
+                data: {
+                    id,
+                    status
+                },
+                success: function(result) {
                     $('.alert').show();
-                    if(result != ''){
+                    if (result != '') {
                         $('.alert').addClass('alert-warning');
                         $('.alert').text(result);
-                        setTimeout(() => { $('.alert').hide() }, 5000);
-                    }
-                    else{
+                        setTimeout(() => {
+                            $('.alert').hide()
+                        }, 5000);
+                    } else {
                         $('.alert').addClass('alert-success');
                         $('.alert').text('updated');
-                        setTimeout(() => { $('.alert').hide() }, 5000);
+                        setTimeout(() => {
+                            $('.alert').hide()
+                        }, 5000);
                     }
                 }
             })

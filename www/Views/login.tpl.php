@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <!-- url origin -->
+    <!-- route origin -->
     <base href="http://localhost/admin/">
     <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
     <!-- insert css data table -->
@@ -26,17 +26,19 @@
         $(document).ready(function () {
             $('#formLogin').on('submit', function (e) {
                 e.preventDefault();
-
                 const email = $('#Email').val()
                 const password = $('#Password').val()
-
                 // send ajax
                 $.ajax({
-                    url: 'http://localhost/processlogin',
+                    url: '/processlogin',
                     type: 'POST',
                     data: {email, password},
                     success: function (result) {
-                        console.log(result);
+                        if(result == 'Logged in successfully'){
+                            window.location.href = '/admin/dashboard/index';
+                        }else{
+                            alert(result);
+                        }
                     }
                 });
                 return false;

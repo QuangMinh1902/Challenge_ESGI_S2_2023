@@ -47,5 +47,6 @@ class View
     {
         extract($this->data);
         include $this->template;
+        // echo "destruct function calledddddddddddddddddddddd <br>";
     }
 }

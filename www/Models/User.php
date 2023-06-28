@@ -1,19 +1,15 @@
 <?php
-
 namespace App\Models;
-
 use App\Core\Sql;
 
-class User extends Sql
-{
+class User extends Sql {
 
     protected Int $id = 0;
     protected String $firstname;
     protected String $lastname;
     protected String $email;
     protected String $password;
-    protected String $date_updated;
-    protected String $status = 'FALSE';
+    protected String $status='FALSE';
 
     /**
      * @return int
@@ -66,22 +62,6 @@ class User extends Sql
     /**
      * @return String
      */
-    // public function getCountry(): string
-    // {
-    //     return $this->country;
-    // }
-
-    /**
-     * @param String $country
-     */
-    // public function setCountry(string $country): void
-    // {
-    //     $this->country = strtoupper(trim($country));
-    // }
-
-    /**
-     * @return String
-     */
     public function getEmail(): string
     {
         return $this->email;
@@ -125,23 +105,5 @@ class User extends Sql
     public function setStatus(string $status): void
     {
         $this->status = $status;
-    }
-
-    /**
-     * @return int
-     */
-    public function getDateUpdated()
-    {
-        return $this->date_updated;
-    }
-
-    /**
-     * @param int $updated
-     */
-    public function setDateUpdated(): void
-    {
-        date_default_timezone_set('Europe/Paris');
-        $currentDateTime = date('Y-m-d H:i:s');
-        $this->date_updated = $currentDateTime;
     }
 }

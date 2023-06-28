@@ -82,52 +82,6 @@ class FormUser extends AForm {
             );
         }
 
-        // $option = [
-        //     [
-        //         "value" => "",
-        //         "title" => "",
-        //         "selected" => ""
-        //     ],
-        //     [
-        //         "value" => "FR",
-        //         "title" => "FR",
-        //         "selected" => ""
-        //     ],
-        //     [
-        //         "value" => "PL",
-        //         "title" => "PL",
-        //         "selected" => ""
-        //     ]
-        // ];
-        
-        // if($row){
-        //     $new_option = [];
-        //     foreach ($option as $key => $value) {
-        //         $selected = '';
-        //         if($value['value'] == $row[0]['country']){
-        //             $selected = 'selected';
-        //         }
-        //         $new_option[$key]['value'] = $value['value'];
-        //         $new_option[$key]['title'] = $value['title'];
-        //         $new_option[$key]['selected'] = $selected;
-        //     }
-        //     // print_r($new_option);
-
-        //     $option = $new_option;
-        // }
-
-        // $group['country'] = $this->getElements(
-        //     [
-        //         "id" => "country",
-        //         "title" => "Quốc Gia"
-        //     ],
-        //     [
-        //         "type" => "select",
-        //         "options" => $option,
-        //         "error" => "Pays incorrect"
-        //     ]
-        // );
-
         return [
             "config"=>[
                 "method"=>$this->getMethod(),
