@@ -72,12 +72,16 @@
 
 /processlogin:
   controller: User_Controller
-  action: processlogin
+  action: processLogin
 
 /logout:
   controller: User_Controller
   action: logout
 
 /register:
-  controller: Security
+  controller: User_Controller
   action: register
+
+/processregister:
+  controller: User_Controller
+  action: processRegister

@@ -123,10 +123,10 @@ class User_Controller
 
     function login()
     {
-        $view = new View($this->folder . "/login", "login");
+        $view = new View($this->folder . "/login", "auth");
     }
 
-    function processlogin()
+    function processLogin()
     {
         $email = $_POST['email'];
         $password = $_POST['password'];
@@ -154,5 +154,31 @@ class User_Controller
         session_destroy();
         header('Location: ' . (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP_HOST]" . '/login');
         exit();
+    }
+
+    function register()
+    {
+        $view = new View($this->folder . "/register", "auth");
+    }
+
+    function processRegister()
+    {
+        if (isset($_POST)) {
+            $firstname = $_POST['firstname'];
+            $lastname = $_POST['lastname'];
+            $email = $_POST['email'];
+            $password = $_POST['password'];
+            $confirmPassword = $_POST['confirmPassword'];
+            if ($password == $confirmPassword) {
+                $user = new User();
+                $user->setEmail($email);
+                $user->setPassword($password);
+                $user->setFirstname($firstname);
+                $user->setLastname($lastname);
+                $user->save();
+                header('Location: ' . (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP_HOST]" . '/login');
+                exit();
+            }
+        }
     }
 }
