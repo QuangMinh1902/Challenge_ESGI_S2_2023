@@ -54,9 +54,12 @@ class User_Controller
                     $user->setLastname($lastname);
                     $user->setEmail($email);
                     $user->setPassword($pwd);
+                    $user->setRole('commentator');
                     $user->save();
                     header('Location: ' . $actual_link . '/admin/' . strtolower($this->folder) . '/index');
                     exit();
+                } else {
+                    echo "<script> window.alert('Password does not match') </script>";
                 }
             }
         } else {
