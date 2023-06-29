@@ -2,12 +2,13 @@
 
 namespace App\Controllers;
 
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
 use App\Core\View;
 use App\Forms\FormUser;
 use App\Models\User;
-use App\Core\Verificator;
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -47,14 +48,16 @@ class User_Controller
                 $email = $_POST["email"];
                 $pwd = $_POST["pwd"];
                 $pwdConfirm = $_POST["pwdConfirm"];
-                $user = new User();
-                $user->setFirstname($firstname);
-                $user->setLastname($lastname);
-                $user->setEmail($email);
-                $user->setPassword($pwd);
-                $user->save();
-                header('Location: ' . $actual_link . '/admin/' . strtolower($this->folder) . '/index');
-                exit();
+                if ($pwd == $pwdConfirm) {
+                    $user = new User();
+                    $user->setFirstname($firstname);
+                    $user->setLastname($lastname);
+                    $user->setEmail($email);
+                    $user->setPassword($pwd);
+                    $user->save();
+                    header('Location: ' . $actual_link . '/admin/' . strtolower($this->folder) . '/index');
+                    exit();
+                }
             }
         } else {
             echo 'Please login folow link <a href="/login">Login</a>';
