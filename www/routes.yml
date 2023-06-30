@@ -2,6 +2,10 @@
   controller: Layout
   action: index
 
+/accueil:
+  controller: Blog
+  action: index
+
 /admin/dashboard/index:
   controller: Dashboard
   action: index
