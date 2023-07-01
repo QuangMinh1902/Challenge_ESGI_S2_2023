@@ -7,23 +7,23 @@
   action: index
 
 /admin/user/index:
-  controller: User_Controller
+  controller: UserController
   action: index
 
 /admin/user/insert:
-  controller: User_Controller
+  controller: UserController
   action: insert
 
 /admin/user/update:
-  controller: User_Controller
+  controller: UserController
   action: update
 
 /admin/user/delete:
-  controller: User_Controller
+  controller: UserController
   action: delete
 
 /admin/user/status:
-  controller: User_Controller
+  controller: UserController
   action: status
 
 /admin/category/index:
@@ -67,21 +67,21 @@
 #   action: contact
 
 /login:
-  controller: User_Controller
+  controller: UserController
   action: login
 
 /processlogin:
-  controller: User_Controller
+  controller: UserController
   action: processLogin
 
 /logout:
-  controller: User_Controller
+  controller: UserController
   action: logout
 
 /register:
-  controller: User_Controller
+  controller: UserController
   action: register
 
 /processregister:
-  controller: User_Controller
+  controller: UserController
   action: processRegister

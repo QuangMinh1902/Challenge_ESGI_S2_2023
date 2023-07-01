@@ -178,6 +178,8 @@ class User_Controller
                 $user->save();
                 header('Location: ' . (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP_HOST]" . '/login');
                 exit();
+            }else{
+                echo "<script>alert('Password does not match');</script>" ;
             }
         }
     }

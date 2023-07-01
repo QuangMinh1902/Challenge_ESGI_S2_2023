@@ -16,7 +16,7 @@
 								<input type="password" class="form-control" id="Password" placeholder="Enter Password" required>
 							</div>
 							<button type="submit" class="btn btn-primary btn-block mb-4">Sign in </button>
-							<p class="mb-2">Do not have an account? <a href="auth-signin.html" class="f-w-400">Sign up</a>
+							<p class="mb-2">Do not have an account? <a href="/register" class="f-w-400">Sign up</a>
 							</p>
 						</div>
 					</form>

@@ -5,9 +5,9 @@
             <div class="col-sm-6">
                 <div class="card support-bar overflow-hidden">
                     <div class="card-body pb-0">
-                        <h2 class="m-0">350</h2>
-                        <span class="text-c-blue">Support Requests</span>
-                        <p class="mb-3 mt-3">Total number of support requests that come in.</p>
+                        <h2 class="m-0"><?php echo $numberUsers;  ?></h2>
+                        <span class="text-c-blue">Users</span>
+                        <p class="mb-3 mt-3">Total number of users by stage.</p>
                     </div>
                     <div id="support-chart"></div>
                     <div class="card-footer bg-primary text-white">
@@ -57,231 +57,35 @@
         </div>
         <!-- support-section end -->
     </div>
-    <div class="col-lg-5 col-md-12">
-        <!-- page statustic card start -->
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row align-items-center">
-                            <div class="col-8">
-                                <h4 class="text-c-yellow">$30200</h4>
-                                <h6 class="text-muted m-b-0">All Earnings</h6>
-                            </div>
-                            <div class="col-4 text-end">
-                                <i class="feather icon-bar-chart-2 f-28"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-footer bg-c-yellow">
-                        <div class="row align-items-center">
-                            <div class="col-9">
-                                <p class="text-white m-b-0">% change</p>
-                            </div>
-                            <div class="col-3 text-end">
-                                <i class="feather icon-trending-up text-white f-16"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row align-items-center">
-                            <div class="col-8">
-                                <h4 class="text-c-green">290+</h4>
-                                <h6 class="text-muted m-b-0">Page Views</h6>
-                            </div>
-                            <div class="col-4 text-end">
-                                <i class="feather icon-file-text f-28"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-footer bg-c-green">
-                        <div class="row align-items-center">
-                            <div class="col-9">
-                                <p class="text-white m-b-0">% change</p>
-                            </div>
-                            <div class="col-3 text-end">
-                                <i class="feather icon-trending-up text-white f-16"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row align-items-center">
-                            <div class="col-8">
-                                <h4 class="text-c-red">145</h4>
-                                <h6 class="text-muted m-b-0">Task</h6>
-                            </div>
-                            <div class="col-4 text-end">
-                                <i class="feather icon-calendar f-28"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-footer bg-c-red">
-                        <div class="row align-items-center">
-                            <div class="col-9">
-                                <p class="text-white m-b-0">% change</p>
-                            </div>
-                            <div class="col-3 text-end">
-                                <i class="feather icon-trending-down text-white f-16"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row align-items-center">
-                            <div class="col-8">
-                                <h4 class="text-c-blue">500</h4>
-                                <h6 class="text-muted m-b-0">Downloads</h6>
-                            </div>
-                            <div class="col-4 text-end">
-                                <i class="feather icon-thumbs-down f-28"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-footer bg-c-blue">
-                        <div class="row align-items-center">
-                            <div class="col-9">
-                                <p class="text-white m-b-0">% change</p>
-                            </div>
-                            <div class="col-3 text-end">
-                                <i class="feather icon-trending-down text-white f-16"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- page statustic card end -->
-    </div>
+
     <!-- prject ,team member start -->
     <div class="col-xl-6 col-md-12">
         <div class="card table-card">
             <div class="card-header">
-                <h5>Projects</h5>
-                <div class="card-header-right">
-                    <div class="btn-group card-option">
-                        <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="feather icon-more-horizontal"></i>
-                        </button>
-                        <ul class="list-unstyled card-option dropdown-menu dropdown-menu-end">
-                            <li class="dropdown-item full-card"><a href="#!"><span><i class="feather icon-maximize"></i> maximize</span><span style="display:none"><i class="feather icon-minimize"></i> Restore</span></a></li>
-                            <li class="dropdown-item minimize-card"><a href="#!"><span><i class="feather icon-minus"></i> collapse</span><span style="display:none"><i class="feather icon-plus"></i> expand</span></a></li>
-                            <li class="dropdown-item reload-card"><a href="#!"><i class="feather icon-refresh-cw"></i> reload</a></li>
-                            <li class="dropdown-item close-card"><a href="#!"><i class="feather icon-trash"></i> remove</a></li>
-                        </ul>
-                    </div>
-                </div>
+                <h5>User List</h5>
             </div>
             <div class="card-body p-0">
-                <div class="table-responsive">
+                <div class="table-responsive overflow-auto" style="max-height: 400px;">
                     <table class="table table-hover mb-0">
                         <thead>
                             <tr>
-                                <th>
-                                    <div class="chk-option">
-                                        <label class="check-task form-check d-flex justify-content-center done-task">
-                                            <input type="checkbox" class="form-check-input">
-                                            <span class="form-check-label"></span>
-                                        </label>
-                                    </div>
-                                    Assigned
-                                </th>
-                                <th>Name</th>
-                                <th>Due Date</th>
-                                <th class="text-end">Priority</th>
+                                <th>FirstName</th>
+                                <th>LastName</th>
+                                <th>Role</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>
-                                    <div class="chk-option">
-                                        <label class="check-task form-check d-flex justify-content-center done-task">
-                                            <input type="checkbox" class="form-check-input">
-                                            <span class="form-check-label"></span>
-                                        </label>
-                                    </div>
-                                    <div class="d-inline-block align-middle">
-                                        <img src="assets/images/user/avatar-4.jpg" alt="user image" class="img-radius wid-40 align-top m-r-15">
-                                        <div class="d-inline-block">
-                                            <h6>John Deo</h6>
-                                            <p class="text-muted m-b-0">Graphics Designer</p>
+                            <?php foreach ($table as $key => $value) : ?>
+                                <tr>
+                                    <td>
+                                        <div class="d-inline-block align-middle">
+                                            <?php echo $value['firstname'] ?>
                                         </div>
-                                    </div>
-                                </td>
-                                <td>Able Pro</td>
-                                <td>Jun, 26</td>
-                                <td class="text-end"><label class="badge badge-light-danger">Low</label></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="chk-option">
-                                        <label class="check-task form-check d-flex justify-content-center done-task">
-                                            <input type="checkbox" class="form-check-input">
-                                            <span class="form-check-label"></span>
-                                        </label>
-                                    </div>
-                                    <div class="d-inline-block align-middle">
-                                        <img src="assets/images/user/avatar-2.jpg" alt="user image" class="img-radius wid-40 align-top m-r-15">
-                                        <div class="d-inline-block">
-                                            <h6>Jenifer Vintage</h6>
-                                            <p class="text-muted m-b-0">Web Designer</p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>Mashable</td>
-                                <td>March, 31</td>
-                                <td class="text-end"><label class="badge badge-light-primary">high</label></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="chk-option">
-                                        <label class="check-task form-check d-flex justify-content-center done-task">
-                                            <input type="checkbox" class="form-check-input">
-                                            <span class="form-check-label"></span>
-                                        </label>
-                                    </div>
-                                    <div class="d-inline-block align-middle">
-                                        <img src="assets/images/user/avatar-3.jpg" alt="user image" class="img-radius wid-40 align-top m-r-15">
-                                        <div class="d-inline-block">
-                                            <h6>William Jem</h6>
-                                            <p class="text-muted m-b-0">Developer</p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>Flatable</td>
-                                <td>Aug, 02</td>
-                                <td class="text-end"><label class="badge badge-light-success">medium</label></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="chk-option">
-                                        <label class="check-task form-check d-flex justify-content-center done-task">
-                                            <input type="checkbox" class="form-check-input">
-                                            <span class="form-check-label"></span>
-                                        </label>
-                                    </div>
-                                    <div class="d-inline-block align-middle">
-                                        <img src="assets/images/user/avatar-2.jpg" alt="user image" class="img-radius wid-40 align-top m-r-15">
-                                        <div class="d-inline-block">
-                                            <h6>David Jones</h6>
-                                            <p class="text-muted m-b-0">Developer</p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>Guruable</td>
-                                <td>Sep, 22</td>
-                                <td class="text-end"><label class="badge badge-light-primary">high</label></td>
-                            </tr>
+                                    </td>
+                                    <td><?php echo $value['lastname'] ?></td>
+                                    <td><?php echo $value['role'] ?></td>
+                                </tr>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>
@@ -367,53 +171,7 @@
         </div>
     </div>
     <!-- prject ,team member start -->
-    <!-- seo start -->
-    <div class="col-xl-4 col-md-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="row align-items-center">
-                    <div class="col-6">
-                        <h3>$16,756</h3>
-                        <h6 class="text-muted m-b-0">Visits<i class="fa fa-caret-down text-c-red m-l-10"></i></h6>
-                    </div>
-                    <div class="col-6">
-                        <div id="seo-chart1" class="d-flex align-items-end"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-4 col-md-6">
-        <div class="card">
-            <div class="card-body">
-                <div class="row align-items-center">
-                    <div class="col-6">
-                        <h3>49.54%</h3>
-                        <h6 class="text-muted m-b-0">Bounce Rate<i class="fa fa-caret-up text-c-green m-l-10"></i></h6>
-                    </div>
-                    <div class="col-6">
-                        <div id="seo-chart2" class="d-flex align-items-end"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-4 col-md-6">
-        <div class="card">
-            <div class="card-body">
-                <div class="row align-items-center">
-                    <div class="col-6">
-                        <h3>1,62,564</h3>
-                        <h6 class="text-muted m-b-0">Products<i class="fa fa-caret-down text-c-red m-l-10"></i></h6>
-                    </div>
-                    <div class="col-6">
-                        <div id="seo-chart3" class="d-flex align-items-end"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- seo end -->
+
 
     <!-- Latest Customers start -->
     <div class="col-lg-8 col-md-12">
@@ -484,55 +242,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="mb-3">Power</h5>
-                        <h2>2789<span class="text-muted m-l-5 f-14">kw</span></h2>
-                        <div id="power-card-chart1"></div>
-                        <div class="row">
-                            <div class="col col-auto">
-                                <div class="map-area">
-                                    <h6 class="m-0">2876 <span> kw</span></h6>
-                                    <p class="text-muted m-0">month</p>
-                                </div>
-                            </div>
-                            <div class="col col-auto">
-                                <div class="map-area">
-                                    <h6 class="m-0">234 <span> kw</span></h6>
-                                    <p class="text-muted m-0">Today</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="mb-3">Temperature</h5>
-                        <h2>7.3<span class="text-muted m-l-10 f-14">deg</span></h2>
-                        <div id="power-card-chart3"></div>
-                        <div class="row">
-                            <div class="col col-auto">
-                                <div class="map-area">
-                                    <h6 class="m-0">4.5 <span> deg</span></h6>
-                                    <p class="text-muted m-0">month</p>
-                                </div>
-                            </div>
-                            <div class="col col-auto">
-                                <div class="map-area">
-                                    <h6 class="m-0">0.5 <span> deg</span></h6>
 
-                                    <p class="text-muted m-0">Today</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
     <div class="col-lg-4 col-md-12">
         <div class="card chat-card">
@@ -599,27 +309,7 @@
                 </div>
             </div>
         </div>
-        <div class="card user-card2">
-            <div class="card-body text-center">
-                <h6 class="m-b-15">Project Risk</h6>
-                <div class="risk-rate">
-                    <span><b>5</b></span>
-                </div>
-                <h6 class="m-b-10 m-t-10">Balanced</h6>
-                <a href="#!" class="text-c-green b-b-success">Change Your Risk</a>
-                <div class="row justify-content-center m-t-10 b-t-default m-l-0 m-r-0">
-                    <div class="col m-t-15 b-r-default">
-                        <h6 class="text-muted">Nr</h6>
-                        <h6>AWS 2455</h6>
-                    </div>
-                    <div class="col m-t-15">
-                        <h6 class="text-muted">Created</h6>
-                        <h6>30th Sep</h6>
-                    </div>
-                </div>
-            </div>
-            <button class="btn btn-success btn-block">Download Overall Report</button>
-        </div>
+
     </div>
     <!-- Latest Customers end -->
 </div>

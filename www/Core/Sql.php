@@ -21,6 +21,13 @@ abstract class Sql
         $this->table = "esgi_" . $this->table;
     }
 
+    public function getTotalRows() {
+        $queryPrepared = $this->pdo->prepare('SELECT count(*) as count FROM ' . $this->table);
+        $queryPrepared->execute();
+        $result = $queryPrepared->fetch(\PDO::FETCH_ASSOC);
+        return $result['count'];
+    }
+
     public function getList(): array
     {
         $queryPrepared = $this->pdo->prepare('SELECT * FROM ' . $this->table . ' ORDER BY id DESC');
