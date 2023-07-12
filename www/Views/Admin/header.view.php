@@ -1,12 +1,7 @@
-<?php
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
-?>
 <header class="navbar pcoded-header navbar-expand-lg navbar-light header-blue">
     <div class="m-header">
         <a class="mobile-menu" id="mobile-collapse" href="#!"><span></span></a>
-        <a href="#!" class="b-brand">
+        <a href="/" target="_blanlk" class="b-brand">
             <img src="assets/images/logo.png" alt="" class="logo">
         </a>
         <a href="#!" class="mob-toggler">
@@ -39,12 +34,8 @@ if (session_status() == PHP_SESSION_NONE) {
                             </a>
                         </div>
                         <ul class="pro-body">
-                            <?php if (isset($_SESSION["user"])) : ?>
-                                <li><a href="/admin/user/update?id=<?php echo $_SESSION["user"]['id']; ?>" class="dropdown-item"><i class="feather icon-user"></i> Profile</a></li>
-                                <li><a href="/logout" class="dropdown-item"><i class="feather icon-lock"></i> Logout</a></li>
-                            <?php else : ?>
-                                <li><a href="/logout" class="dropdown-item"><i class="feather icon-lock"></i> Sign in</a></li>
-                            <?php endif; ?>
+                            <li><a href="/admin/user/update?id=<?php echo $_SESSION["user"]['id']; ?>" class="dropdown-item"><i class="feather icon-user"></i> Profile</a></li>
+                            <li><a href="/logout" class="dropdown-item"><i class="feather icon-lock"></i> Logout</a></li>
                         </ul>
                     </div>
                 </div>

@@ -1,7 +1,7 @@
 <section class="pcoded-main-container">
     <div class="pcoded-content">
         <?php include "bredcrumb.view.php"; ?>    
-        <!-- main's content change -->
+        <!-- Nội dung main thay đổi -->
         <?php include $this->view; ?>
     </div>
 </section>

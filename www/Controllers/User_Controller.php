@@ -2,11 +2,11 @@
 namespace App\Controllers;
 session_start();
 use App\Core\View;
-use App\Forms\FormPost;
-use App\Models\Post;
+use App\Forms\FormUser;
+use App\Models\User;
 use App\Core\Verificator;
 
-class Post_Controller {
+class User_Controller {
     private $folder;
 
     public function __construct(){
@@ -19,28 +19,33 @@ class Post_Controller {
     }
 
     function index(){
-        $model = new Post();
+        $model = new User();
         $table = $model->getList();
         $view = new View($this->folder."/index", "back");
         $view->assign("table", $table);
     }
 
-    function insert()
+    function insert(): void
     {
-        $form = new FormPost();
+        $form = new FormUser();
         $view = new View($this->folder."/form", "back");
         $view->assign('form', $form->getConfig());
         $actual_link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP_HOST]";
         if($form->isSubmit())
         {
-            $title = $_POST["title"];
-            $slug = $_POST["slug"];
-            $parents = $_POST["parents"];
-            $model = new Post();
-            $model->setTitle($title);
-            $model->setSlug($slug);
-            $model->setParents($parents);
+            $firstname = $_POST["firstname"];
+            $lastname = $_POST["lastname"];
+            $email = $_POST["email"];
+            $pwd = $_POST["pwd"];
+            $pwdConfirm = $_POST["pwdConfirm"];
+
+            $model = new User();
+            $model->setFirstname($firstname);
+            $model->setLastname($lastname);
+            $model->setEmail($email);
+            $model->setPassword($pwd);
             $model->save();
+
             header('Location: '.$actual_link.'/admin/'.strtolower($this->folder).'/index');
             exit();
         }
@@ -48,29 +53,31 @@ class Post_Controller {
 
     function update(){
         $actual_link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP_HOST]";
-        $form = new FormPost();
-        $model = new Post();
+        $form = new FormUser();
+        $model = new User();
         $model->setId($_GET['id']);
         $row = $model->getDetail();
         $view = new View($this->folder."/form", "back");
         $view->assign('form', $form->getConfig($row));
         if($form->isSubmit())
         {
-            $title = $_POST["title"];
-            $slug = $_POST["slug"];
-            $parents = $_POST["parents"];
-            $model->setTitle($title);
-            $model->setSlug($slug);
-            $model->setParents($parents);
+            $firstname = $_POST["firstname"];
+            $lastname = $_POST["lastname"];
+            $email = $_POST["email"];
+
+            $model->setFirstname($firstname);
+            $model->setLastname($lastname);
+            $model->setEmail($email);
             $model->setId($_GET['id']);
             $model->save();
+            
             header('Location: '.$actual_link.'/admin/'.strtolower($this->folder).'/update?id='.$model->getId());
             exit();
         }
     }
 
     function delete(){
-        $model = new Post();
+        $model = new User();
         $model->setId($_POST["id"]);
         $result = (count($model->getDetail()) == 0) ? 'Data does not exist.' : '';
         $model->delete();
@@ -78,7 +85,7 @@ class Post_Controller {
     }
 
     function status(){
-        $model = new Post();
+        $model = new User();
         $model->setId($_POST["id"]);
         $result = (count($model->getDetail()) == 0) ? 'Data does not exist.' : '';
         $model->setStatus(strtoupper($_POST['status']));
@@ -86,4 +93,3 @@ class Post_Controller {
         echo $result;
     }
 }
-?>

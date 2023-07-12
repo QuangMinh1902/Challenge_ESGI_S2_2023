@@ -26,7 +26,7 @@
                                         <label class="form-label">
                                             <?php echo $value['labels']['title']; ?>
                                         </label>
-                                        <input type="<?php echo $value['elements']['type']; ?>" class="form-control" name="<?php echo $key; ?>" id="<?php echo $key; ?>" value="<?php echo $value['elements']['value']; ?>" <?php if ($value['elements']['event'] == 'onkeyup') { ?> onkeyup="to_slug('title', 'slug')" <?php } ?> <?php echo $value['elements']['required']; ?> placeholder="<?php echo $value['labels']['title']; ?>">
+                                        <input type="<?php echo $value['elements']['type']; ?>" class="form-control" name="<?php echo $key; ?>" value="<?php echo $value['elements']['value']; ?>" <?php echo $value['elements']['required']; ?> placeholder="<?php echo $value['labels']['title']; ?>">
                                     </div>
                                 </div>
                             <?php endif; ?>

@@ -1,19 +1,15 @@
 <?php
-
 namespace App\Models;
-
 use App\Core\Sql;
 
-class User extends Sql
-{
+class User extends Sql {
 
     protected Int $id = 0;
     protected String $firstname;
     protected String $lastname;
     protected String $email;
     protected String $password;
-    protected String $status = 'FALSE';
-    protected String $role = 'unverified';
+    protected String $status='FALSE';
 
     /**
      * @return int
@@ -109,25 +105,5 @@ class User extends Sql
     public function setStatus(string $status): void
     {
         $this->status = $status;
-    }
-
-    /**
-     * Get the value of role
-     */ 
-    public function getRole()
-    {
-        return $this->role;
-    }
-
-    /**
-     * Set the value of role
-     *
-     * @return  self
-     */ 
-    public function setRole($role)
-    {
-        $this->role = $role;
-
-        return $this;
     }
 }

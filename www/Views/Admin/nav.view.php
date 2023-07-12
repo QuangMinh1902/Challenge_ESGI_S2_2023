@@ -6,14 +6,25 @@
                 <div class="main-menu-header">
                     <img class="img-radius" src="assets/images/user/avatar-2.jpg" alt="User-Profile-Image">
                     <div class="user-details">
-                        <div id="more-details">UX Designer <i class="fa fa-caret-down"></i></div>
+                        <div id="more-details"><?php echo $_SESSION["user"]['firstname']; ?> <i class="fa fa-caret-down"></i></div>
                     </div>
                 </div>
                 <div class="collapse" id="nav-user-link">
                     <ul class="list-inline">
-                        <li class="list-inline-item"><a href="user-profile.html" data-toggle="tooltip" title="View Profile"><i class="feather icon-user"></i></a></li>
-                        <li class="list-inline-item"><a href="email_inbox.html"><i class="feather icon-mail" data-toggle="tooltip" title="Messages"></i><small class="badge badge-pill badge-primary">5</small></a></li>
-                        <li class="list-inline-item"><a href="auth-signin.html" data-toggle="tooltip" title="Logout" class="text-danger"><i class="feather icon-power"></i></a></li>
+                        <li class="list-inline-item">
+                            <a href="/admin/user/update?id=<?php echo $_SESSION["user"]["id"]; ?>" data-toggle="tooltip" title="View Profile"><i class="feather icon-user"></i></a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="/">
+                                <i class="feather icon-mail" data-toggle="tooltip" title="Messages"></i>
+                                <small class="badge badge-pill badge-primary">5</small>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="/logout" data-toggle="tooltip" title="Logout" class="text-danger">
+                                <i class="feather icon-power"></i>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -21,16 +32,15 @@
             <?php
                 $nav = [
                     array("title"=>"Dashboard", "icon"=>"home", "link"=>"dashboard"),
-                    array("title"=>"Posts", "icon"=>"globe", "link"=>"post"),
-                    array("title"=>"Members", "icon"=>"users", "link"=>"user")
+                    array("title"=>"Category", "icon"=>"menu", "link"=>"category"),
+                    array("title"=>"Post", "icon"=>"globe", "link"=>"post"),
+                    array("title"=>"Menu", "icon"=>"navigation", "link"=>"menu"),
+                    array("title"=>"User", "icon"=>"users", "link"=>"user")
                 ];
             ?>
 
             <ul class="nav pcoded-inner-navbar ">
-                <li class="nav-item pcoded-menu-caption">
-                    <label>Main Directory</label>
-                </li>
-                
+                <li class="nav-item pcoded-menu-caption"></li>
                 <?php
                     $str='';
                     foreach ($nav as $key => $value) {
