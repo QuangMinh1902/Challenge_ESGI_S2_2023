@@ -7,8 +7,12 @@ class Post extends Sql {
     protected Int $id = 0;
     protected String $title;
     protected String $slug;
+    protected String $description;
+    protected String $content;
     protected Int $parents = 0;
     protected String $status;
+    protected String $sort;
+    protected Int $userid = 0;
 
     /**
      * @return int
@@ -45,6 +49,38 @@ class Post extends Sql {
     /**
      * @return String
      */
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param String $description
+     */
+    public function setDescription(string $description): void
+    {
+        $this->description = $description;
+    }
+
+    /**
+     * @return String
+     */
+    public function getContent(): string
+    {
+        return $this->content;
+    }
+
+    /**
+     * @param String $content
+     */
+    public function setContent(string $content): void
+    {
+        $this->content = $content;
+    }
+
+    /**
+     * @return String
+     */
     public function getSlug(): string
     {
         return $this->slug;
@@ -55,7 +91,7 @@ class Post extends Sql {
      */
     public function setSlug(string $slug): void
     {
-        $this->slug = strtoupper(trim($slug));
+        $this->slug = ucwords(strtolower(trim($slug)));
     }
 
     /**
@@ -88,5 +124,41 @@ class Post extends Sql {
     public function setStatus(string $status): void
     {
         $this->status = $status;
+    }
+
+    /**
+     * @return Int
+     */
+    public function getUserId(): int
+    {
+        return $this->userid;
+    }
+
+    /**
+     * @param Int $userId
+     */
+    public function setUserId(int $userid): void
+    {
+        $this->userid = $userid;
+    }
+
+    /**
+     * Get the value of sort
+     */ 
+    public function getSort()
+    {
+        return $this->sort;
+    }
+
+    /**
+     * Set the value of sort
+     *
+     * @return  self
+     */ 
+    public function setSort($sort)
+    {
+        $this->sort = $sort;
+
+        return $this;
     }
 }

@@ -92,4 +92,27 @@ class User_Controller {
         $model->status();
         echo $result;
     }
+
+    function send_email()
+    {
+        include('class.smtp.php');
+        include('class.phpmailer.php');
+        $mail = new PHPMailer();
+        $mail->IsSMTP();
+        $mail->CharSet = 'utf-8';
+        $mail->Host = 'smtp.gmail.com';
+        $mail->Port = '465';
+        $mail->SMTPAuth = true;
+        $mail->SMTPSecure = 'ssl';
+        $mail->Username = 'czc';
+        $mail->Password = 'zczxczc';
+        $mail->From = '';
+        $mail->FromName = 'QuangMinh';
+        $mail->AddAddress( $configs->email, $mail->FromName );
+        $mail->AddReplyTo( $configs->email, $mail->FromName );
+        $mail->isHTML(true);
+        $mail->Subject      = $mail->FromName;
+        $mail->Body         = 'Nội Dung Gửi Mail';
+        echo (!$mail->Send()) ? 'Mailer Error: ' . $mail->ErrorInfo : ''; exit();
+    }
 }

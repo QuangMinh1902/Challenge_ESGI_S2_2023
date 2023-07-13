@@ -85,4 +85,13 @@ class Category_Controller {
         $model->status();
         echo $result;
     }
+
+    function sort(){
+        $model = new Category();
+        $model->setId($_POST["id"]);
+        $result = (count($model->getDetail()) == 0) ? 'Data does not exist.' : '';
+        $model->setSort($_POST['sort']);
+        $model->sort();
+        echo $result;
+    }
 }
