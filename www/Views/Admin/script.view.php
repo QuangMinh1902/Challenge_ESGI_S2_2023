@@ -8,6 +8,7 @@
 <script src="assets/js/plugins/jquery.dataTables.min.js"></script>
 <script src="assets/js/plugins/dataTables.bootstrap4.min.js"></script>
 <script src="assets/js/pages/data-basic-custom.js"></script>
+<!-- kết thúc -->
 
 <script src="assets/js/plugins/apexcharts.min.js"></script>
 <script src="assets/js/pages/dashboard-main.js"></script>
@@ -15,12 +16,14 @@
     $(document).ready(function() {
         checkCookie();
     });
+
     function setCookie(cname, cvalue, exdays) {
         var d = new Date();
         d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
         var expires = "expires=" + d.toGMTString();
         document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
     }
+
     function getCookie(cname) {
         var name = cname + "=";
         var decodedCookie = decodeURIComponent(document.cookie);
@@ -36,10 +39,11 @@
         }
         return "";
     }
+
     function checkCookie() {
         var ticks = getCookie("modelopen");
         if (ticks != "") {
-            ticks++ ;
+            ticks++;
             setCookie("modelopen", ticks, 1);
             if (ticks == "2" || ticks == "1" || ticks == "0") {
                 $('#exampleModalCenter').modal();
@@ -58,49 +62,60 @@
         $('#returnName').text(name);
         $('#getId').val(id);
     }
+
     function script_delete() {
         const id = $('#getId').val();
-        if(id){
+        if (id) {
             $.ajax({
-                url: '/admin/<?php echo explode('/',$_SERVER['REQUEST_URI'])[2]; ?>/delete',
+                url: '/admin/<?php echo explode('/', $_SERVER['REQUEST_URI'])[2]; ?>/delete',
                 type: 'POST',
-                data: { id },
-                success: function (result) {
+                data: {
+                    id
+                },
+                success: function(result) {
                     $('.alert').show();
-                    if(result != ''){
+                    if (result != '') {
                         $('.alert').addClass('alert-warning');
                         $('.alert').text(result);
-                    }
-                    else{
+                    } else {
                         $('.alert').addClass('alert-success');
-                        $('.alert').text('Removed');
-                        $('#tr_'+id).remove();
+                        $('.alert').text('Deleted');
+                        $('#tr_' + id).remove();
                     }
-                    setTimeout(() => { $('.alert').hide() }, 5000);
+                    setTimeout(() => {
+                        $('.alert').hide()
+                    }, 5000);
                 }
             })
             return false;
         }
         return;
     }
+
     function script_status(id) {
-        const status = $('.status_'+id).prop( "checked" )
-        if(id){
+        const status = $('.status_' + id).prop("checked")
+        if (id) {
             $.ajax({
-                url: '/admin/<?php echo explode('/',$_SERVER['REQUEST_URI'])[2]; ?>/status',
+                url: '/admin/<?php echo explode('/', $_SERVER['REQUEST_URI'])[2]; ?>/status',
                 type: 'POST',
-                data: { id, status },
-                success: function (result) {
+                data: {
+                    id,
+                    status
+                },
+                success: function(result) {
                     $('.alert').show();
-                    if(result != ''){
+                    if (result != '') {
                         $('.alert').addClass('alert-warning');
                         $('.alert').text(result);
-                        setTimeout(() => { $('.alert').hide() }, 5000);
-                    }
-                    else{
+                        setTimeout(() => {
+                            $('.alert').hide()
+                        }, 5000);
+                    } else {
                         $('.alert').addClass('alert-success');
                         $('.alert').text('Updated');
-                        setTimeout(() => { $('.alert').hide() }, 5000);
+                        setTimeout(() => {
+                            $('.alert').hide()
+                        }, 5000);
                     }
                 }
             })
@@ -108,23 +123,26 @@
         }
         return;
     }
+
     function updateSort(id) {
-        const sort = $('#sort_'+id).val();
+        const sort = $('#sort_' + id).val();
         $.ajax({
-            url: '/admin/<?php echo explode('/',$_SERVER['REQUEST_URI'])[2]; ?>/sort',
+            url: '/admin/<?php echo explode('/', $_SERVER['REQUEST_URI'])[2]; ?>/sort',
             type: 'POST',
-            data: { id, sort },
-            success: function (result) {}
+            data: {
+                id,
+                sort
+            },
+            success: function(result) {}
         })
         return false;
     }
-    function to_slug(title, slug)
-    {
+
+    function to_slug(title, slug) {
         let str = document.getElementById(title).value;
-        
-        // Convert all to lowercase
+
         str = str.toLowerCase();
-        // remove the sign
+        // xóa dấu
         str = str.replace(/(à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ)/g, 'a');
         str = str.replace(/(è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ)/g, 'e');
         str = str.replace(/(ì|í|ị|ỉ|ĩ)/g, 'i');
@@ -133,16 +151,12 @@
         str = str.replace(/(ỳ|ý|ỵ|ỷ|ỹ)/g, 'y');
         str = str.replace(/(đ)/g, 'd');
 
-        // Remove special characters
         str = str.replace(/([^0-9a-z-\s])/g, '');
 
-        // Remove spaces and replace them with -
         str = str.replace(/(\s+)/g, '-');
 
-        //delete part - at the beginning
         str = str.replace(/^-+/g, '');
 
-        // remove residual - at the end
         str = str.replace(/-+$/g, '');
 
         document.getElementById(slug).value = str;
@@ -154,6 +168,6 @@
 <!-- // ckeditor -->
 <script src="/assets/ckeditor/ckeditor.js"></script>
 <script>
-CKEDITOR.config.language = 'en';
-CKEDITOR.replace('content');
+    CKEDITOR.config.language = 'en';
+    CKEDITOR.replace('content');
 </script>

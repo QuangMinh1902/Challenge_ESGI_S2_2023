@@ -2,11 +2,11 @@
 namespace App\Controllers;
 session_start();
 use App\Core\View;
-use App\Forms\FormPost;
-use App\Models\Post;
+use App\Forms\FormCategory;
+use App\Models\Category;
 use App\Core\Verificator;
 
-class Post_Controller {
+class CategoryController {
     private $folder;
 
     public function __construct(){
@@ -19,7 +19,7 @@ class Post_Controller {
     }
 
     function index(){
-        $model = new Post();
+        $model = new Category();
         $table = $model->getList();
         $view = new View($this->folder."/index", "back");
         $view->assign("table", $table);
@@ -27,27 +27,25 @@ class Post_Controller {
 
     function insert()
     {
-        $model = new Post();
-        $form = new FormPost();
+        if(trim($_SESSION["user"]['role']) == 'guest'){
+            echo 'You are not enough role';
+            die;
+        }
+        $form = new FormCategory();
         $view = new View($this->folder."/form", "back");
-        $category = $model->getList('esgi_Category');
-        $view->assign('form', $form->getConfig([], $category));
+        $view->assign('form', $form->getConfig());
         $actual_link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP_HOST]";
         if($form->isSubmit())
         {
             $title = $_POST["title"];
             $slug = $_POST["slug"];
-            $parents = $_POST["parents"];
-            $description = $_POST["description"];
-            $content = $_POST["content"];
-            
+            $model = new Category();
             $model->setTitle($title);
             $model->setSlug($slug);
-            $model->setParents($parents);
-            $model->setDescription($description);
-            $model->setContent($content);
+            $lasttable = $model->getList('', 'sort', 'DESC', 1);
+            $sort = (count($lasttable)==0) ? 1 : $lasttable[0]['sort'] + 1;
+            $model->setSort($sort);
             $model->setUserId($_SESSION["user"]['id']);
-
             $model->save();
             header('Location: '.$actual_link.'/admin/'.strtolower($this->folder).'/index');
             exit();
@@ -55,27 +53,23 @@ class Post_Controller {
     }
 
     function update(){
+        if(trim($_SESSION["user"]['role']) == 'guest'){
+            echo 'You are not enough role';
+            die;
+        }
         $actual_link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP_HOST]";
-        $form = new FormPost();
-        $model = new Post();
+        $form = new FormCategory();
+        $model = new Category();
         $model->setId($_GET['id']);
         $row = $model->getDetail();
         $view = new View($this->folder."/form", "back");
-        $category = $model->getList('esgi_Category');
-        $view->assign('form', $form->getConfig($row, $category));
+        $view->assign('form', $form->getConfig($row));
         if($form->isSubmit())
         {
             $title = $_POST["title"];
             $slug = $_POST["slug"];
-            $parents = $_POST["parents"];
-            $description = $_POST["description"];
-            $content = $_POST["content"];
             $model->setTitle($title);
             $model->setSlug($slug);
-            $model->setParents($parents);
-            $model->setDescription($description);
-            $model->setContent($content);
-            $model->setUserId($_SESSION["user"]['id']);
             $model->setId($_GET['id']);
             $model->save();
             header('Location: '.$actual_link.'/admin/'.strtolower($this->folder).'/update?id='.$model->getId());
@@ -84,7 +78,11 @@ class Post_Controller {
     }
 
     function delete(){
-        $model = new Post();
+        if(trim($_SESSION["user"]['role']) != 'admin'){
+            echo 'You are not enough role';
+            die;
+        }
+        $model = new Category();
         $model->setId($_POST["id"]);
         $result = (count($model->getDetail()) == 0) ? 'Data does not exist.' : '';
         $model->delete();
@@ -92,11 +90,28 @@ class Post_Controller {
     }
 
     function status(){
-        $model = new Post();
+        if(trim($_SESSION["user"]['role']) == 'guest'){
+            echo 'You are not enough role';
+            die;
+        }
+        $model = new Category();
         $model->setId($_POST["id"]);
         $result = (count($model->getDetail()) == 0) ? 'Data does not exist.' : '';
         $model->setStatus(strtoupper($_POST['status']));
         $model->status();
+        echo $result;
+    }
+
+    function sort(){
+        if(trim($_SESSION["user"]['role']) == 'guest'){
+            echo 'You are not enough role';
+            die;
+        }
+        $model = new Category();
+        $model->setId($_POST["id"]);
+        $result = (count($model->getDetail()) == 0) ? 'Data does not exist.' : '';
+        $model->setSort($_POST['sort']);
+        $model->sort();
         echo $result;
     }
 }

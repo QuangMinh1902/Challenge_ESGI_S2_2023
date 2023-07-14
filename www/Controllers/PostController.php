@@ -2,11 +2,11 @@
 namespace App\Controllers;
 session_start();
 use App\Core\View;
-use App\Forms\FormCategory;
-use App\Models\Category;
+use App\Forms\FormPost;
+use App\Models\Post;
 use App\Core\Verificator;
 
-class Category_Controller {
+class PostController {
     private $folder;
 
     public function __construct(){
@@ -19,7 +19,7 @@ class Category_Controller {
     }
 
     function index(){
-        $model = new Category();
+        $model = new Post();
         $table = $model->getList();
         $view = new View($this->folder."/index", "back");
         $view->assign("table", $table);
@@ -27,19 +27,40 @@ class Category_Controller {
 
     function insert()
     {
-        $form = new FormCategory();
+        if(trim($_SESSION["user"]['role']) == 'guest'){
+            echo 'You are not enough role';
+            die;
+        }
+        $model = new Post();
+        $form = new FormPost();
         $view = new View($this->folder."/form", "back");
-        $view->assign('form', $form->getConfig());
+        $category = $model->getList('esgi_Category');
+        $view->assign('form', $form->getConfig([], $category));
         $actual_link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP_HOST]";
         if($form->isSubmit())
         {
             $title = $_POST["title"];
             $slug = $_POST["slug"];
             $parents = $_POST["parents"];
-            $model = new Category();
+            $description = $_POST["description"];
+            $content = $_POST["content"];
+            // Seo tags
+            $canonical = $_POST["canonical"];
+            $metatitle = $_POST["metatitle"];
+            $metadescription = $_POST["metadescription"];
+            
             $model->setTitle($title);
             $model->setSlug($slug);
             $model->setParents($parents);
+            $model->setDescription($description);
+            $model->setContent($content);
+            // Seo tags
+            $model->setCanonical($canonical);
+            $model->setMetaTitle($metatitle);
+            $model->setMetaDescription($metadescription);
+
+            $model->setUserId($_SESSION["user"]['id']);
+
             $model->save();
             header('Location: '.$actual_link.'/admin/'.strtolower($this->folder).'/index');
             exit();
@@ -47,21 +68,41 @@ class Category_Controller {
     }
 
     function update(){
+        if(trim($_SESSION["user"]['role']) == 'guest'){
+            echo 'You are not enough role';
+            die;
+        }
         $actual_link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP_HOST]";
-        $form = new FormCategory();
-        $model = new Category();
+        $form = new FormPost();
+        $model = new Post();
         $model->setId($_GET['id']);
         $row = $model->getDetail();
         $view = new View($this->folder."/form", "back");
-        $view->assign('form', $form->getConfig($row));
+        $category = $model->getList('esgi_Category');
+        $view->assign('form', $form->getConfig($row, $category));
         if($form->isSubmit())
         {
             $title = $_POST["title"];
             $slug = $_POST["slug"];
             $parents = $_POST["parents"];
+            $description = $_POST["description"];
+            $content = $_POST["content"];
+            // Seo tags
+            $canonical = $_POST["canonical"];
+            $metatitle = $_POST["metatitle"];
+            $metadescription = $_POST["metadescription"];
+
             $model->setTitle($title);
             $model->setSlug($slug);
             $model->setParents($parents);
+            $model->setDescription($description);
+            $model->setContent($content);
+            $model->setUserId($_SESSION["user"]['id']);
+            // Seo tags
+            $model->setCanonical($canonical);
+            $model->setMetaTitle($metatitle);
+            $model->setMetaDescription($metadescription);
+            
             $model->setId($_GET['id']);
             $model->save();
             header('Location: '.$actual_link.'/admin/'.strtolower($this->folder).'/update?id='.$model->getId());
@@ -70,7 +111,11 @@ class Category_Controller {
     }
 
     function delete(){
-        $model = new Category();
+        if(trim($_SESSION["user"]['role']) != 'admin'){
+            echo 'You are not enough role';
+            die;
+        }
+        $model = new Post();
         $model->setId($_POST["id"]);
         $result = (count($model->getDetail()) == 0) ? 'Data does not exist.' : '';
         $model->delete();
@@ -78,20 +123,15 @@ class Category_Controller {
     }
 
     function status(){
-        $model = new Category();
+        if(trim($_SESSION["user"]['role']) == 'guest'){
+            echo 'You are not enough role';
+            die;
+        }
+        $model = new Post();
         $model->setId($_POST["id"]);
         $result = (count($model->getDetail()) == 0) ? 'Data does not exist.' : '';
         $model->setStatus(strtoupper($_POST['status']));
         $model->status();
-        echo $result;
-    }
-
-    function sort(){
-        $model = new Category();
-        $model->setId($_POST["id"]);
-        $result = (count($model->getDetail()) == 0) ? 'Data does not exist.' : '';
-        $model->setSort($_POST['sort']);
-        $model->sort();
         echo $result;
     }
 }
