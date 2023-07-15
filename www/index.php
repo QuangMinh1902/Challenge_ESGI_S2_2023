@@ -40,11 +40,7 @@ if(!file_exists("routes.yml")) {
 }
 
 $routes = yaml_parse_file("routes.yml");
-// var_dump($uri);
-// echo "<pre>";
-// var_dump($routes);
-// echo "</pre>";
-// die();
+
 if(empty($routes[$uri])) {
     $routes[$uri]["controller"] = 'LayoutController';
     $routes[$uri]["action"] = 'index';

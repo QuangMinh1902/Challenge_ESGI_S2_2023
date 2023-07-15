@@ -10,8 +10,7 @@ $model = new Post();
                 foreach ($post as $key => $value) {
 
                     $user = $model->getDetail('esgi_User', $value['userid']);
-
-            ?>
+            ?>  
 
 
             <!-- Post preview-->
@@ -20,25 +19,19 @@ $model = new Post();
                     <h2 class="post-title"><?php echo $value['title']; ?></h2>
                     <h3 class="post-subtitle"><?php echo $value['description']; ?></h3>
                 </a>
+                <?php if(count($user) > 0){ ?>
                 <p class="post-meta">
                     Posted by
                     <a href="<?php echo strtolower(trim($value['slug']).'.html'); ?>"><?php echo $user[0]['firstname'].' '.$user[0]['lastname']; ?></a>
                     <?php echo date("M jS, Y", strtotime($value['date_inserted'])); ?>
                 </p>
+                <?php } ?>
             </div>
 
                 <?php
                 }
                 ?>
 
-
-
-            
-            <!-- Divider-->
-            <hr class="my-4" />
-            <!-- Pager-->
-            <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">Older
-                    Posts →</a></div>
         </div>
     </div>
 </div>

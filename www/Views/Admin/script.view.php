@@ -8,7 +8,7 @@
 <script src="assets/js/plugins/jquery.dataTables.min.js"></script>
 <script src="assets/js/plugins/dataTables.bootstrap4.min.js"></script>
 <script src="assets/js/pages/data-basic-custom.js"></script>
-<!-- kết thúc -->
+<!-- end-->
 
 <script src="assets/js/plugins/apexcharts.min.js"></script>
 <script src="assets/js/pages/dashboard-main.js"></script>
@@ -58,6 +58,38 @@
 </script>
 
 <script>
+    function script_changePassword() {
+        const ch_password = $('#ch_password').val();
+        const ch_confirm = $('#ch_confirm').val();
+
+        if (ch_password == '') {
+            alert('Please enter Password!')
+            return false;
+        }
+
+        if (ch_confirm == '') {
+            alert('Please enter Confirm Password!')
+            return false;
+        }
+
+        if (ch_password != ch_confirm) {
+            alert('Password and Confirm Password must be the same!')
+            return false;
+        }
+
+        $.ajax({
+            url: '/admin/user/changepassword',
+            type: 'POST',
+            data: {
+                password: ch_password
+            }, // key : value {password}
+            success: function name(results) {
+                alert(results)
+                window.location.href = "/login";
+            }
+        })
+    }
+
     function getName(id, name) {
         $('#returnName').text(name);
         $('#getId').val(id);
@@ -141,9 +173,7 @@
     function to_slug(title, slug) {
         let str = document.getElementById(title).value;
 
-        // Convert all to lowercase
         str = str.toLowerCase();
-        // remove the sign
         str = str.replace(/(à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ)/g, 'a');
         str = str.replace(/(è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ)/g, 'e');
         str = str.replace(/(ì|í|ị|ỉ|ĩ)/g, 'i');
@@ -152,16 +182,12 @@
         str = str.replace(/(ỳ|ý|ỵ|ỷ|ỹ)/g, 'y');
         str = str.replace(/(đ)/g, 'd');
 
-        // Remove special characters
         str = str.replace(/([^0-9a-z-\s])/g, '');
 
-        // Remove spaces and replace them with -
         str = str.replace(/(\s+)/g, '-');
 
-        // remove residual - at the beginning
         str = str.replace(/^-+/g, '');
 
-        // remove residual - at the end
         str = str.replace(/-+$/g, '');
 
         document.getElementById(slug).value = str;
