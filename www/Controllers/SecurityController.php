@@ -20,8 +20,6 @@ class SecurityController{
         $model->setEmail($email);
         
         $check_email = $model->checkEmail();
-        // var_dump($check_email);
-        // die();
         if(count($check_email) == 0){
             echo 'Email or Password is incorrect or Account not activated';
             return false;
@@ -38,6 +36,14 @@ class SecurityController{
             echo 'Logged in successfully';
             return true;
         }
+    }
+
+    function active(){
+        $idUser = $_GET['id'];
+        $model = new User();
+        $model->setId($idUser);
+        $model->setStatus('true');
+        $model->status();
     }
 
     function logout() {

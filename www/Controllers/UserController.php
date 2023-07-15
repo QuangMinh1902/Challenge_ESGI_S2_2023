@@ -1,41 +1,51 @@
 <?php
+
 namespace App\Controllers;
+
 session_start();
+
 use App\Core\View;
 use App\Forms\FormUser;
 use App\Models\User;
 use App\Core\Verificator;
 
-class UserController {
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+class UserController
+{
     private $folder;
 
-    public function __construct(){
-        $this->folder = ucfirst(explode('/',$_SERVER['REQUEST_URI'])[2]);
+    public function __construct()
+    {
+        $this->folder = ucfirst(explode('/', $_SERVER['REQUEST_URI'])[2]);
 
-        if(empty($_SESSION["user"])){
+        if (empty($_SESSION["user"])) {
             echo 'Please login folow link <a href="/login">Login</a>';
             die;
         }
     }
 
-    function index(){
+    function index()
+    {
         $model = new User();
         $table = $model->getList();
-        $view = new View($this->folder."/index", "back");
+        $view = new View($this->folder . "/index", "back");
         $view->assign("table", $table);
     }
 
-    function insert(): void {
-        if(trim($_SESSION["user"]['role']) == 'guest'){
+    function insert(): void
+    {
+        if (trim($_SESSION["user"]['role']) == 'guest') {
             echo 'You are not enough role';
             die;
         }
         $form = new FormUser();
-        $view = new View($this->folder."/form", "back");
+        $view = new View($this->folder . "/form", "back");
         $view->assign('form', $form->getConfig());
         $actual_link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP_HOST]";
-        if($form->isSubmit())
-        {
+        if ($form->isSubmit()) {
             $firstname = $_POST["firstname"];
             $lastname = $_POST["lastname"];
             $email = $_POST["email"];
@@ -50,13 +60,20 @@ class UserController {
             $model->setRole($role);
             $model->save();
 
-            header('Location: '.$actual_link.'/admin/'.strtolower($this->folder).'/index');
+            // send mail
+            $newData = $model->getList('', 'id', 'DESC', 1); // Get data just add
+            $idUser = $newData[0]['id'];
+
+            $this->send_email($idUser, $email);
+
+            header('Location: ' . $actual_link . '/admin/' . strtolower($this->folder) . '/index');
             exit();
         }
     }
 
-    function update(){
-        if(trim($_SESSION["user"]['role']) == 'guest'){
+    function update()
+    {
+        if (trim($_SESSION["user"]['role']) == 'guest') {
             echo 'You are not enough role';
             die;
         }
@@ -65,10 +82,9 @@ class UserController {
         $model = new User();
         $model->setId($_GET['id']);
         $row = $model->getDetail();
-        $view = new View($this->folder."/form", "back");
+        $view = new View($this->folder . "/form", "back");
         $view->assign('form', $form->getConfig($row));
-        if($form->isSubmit())
-        {
+        if ($form->isSubmit()) {
             $firstname = $_POST["firstname"];
             $lastname = $_POST["lastname"];
             $email = $_POST["email"];
@@ -80,14 +96,15 @@ class UserController {
             $model->setRole($role);
             $model->setId($_GET['id']);
             $model->save();
-            
-            header('Location: '.$actual_link.'/admin/'.strtolower($this->folder).'/update?id='.$model->getId());
+
+            header('Location: ' . $actual_link . '/admin/' . strtolower($this->folder) . '/update?id=' . $model->getId());
             exit();
         }
     }
 
-    function delete(){
-        if(trim($_SESSION["user"]['role']) != 'admin'){
+    function delete()
+    {
+        if (trim($_SESSION["user"]['role']) != 'admin') {
             echo 'You are not enough role';
             die;
         }
@@ -98,8 +115,9 @@ class UserController {
         echo $result;
     }
 
-    function status(){
-        if(trim($_SESSION["user"]['role']) == 'guest'){
+    function status()
+    {
+        if (trim($_SESSION["user"]['role']) == 'guest') {
             echo 'You are not enough role';
             die;
         }
@@ -111,26 +129,38 @@ class UserController {
         echo $result;
     }
 
-    function send_email()
+    function send_email($idUser = '', $email = '')
     {
-        include('class.smtp.php');
-        include('class.phpmailer.php');
-        $mail = new PHPMailer();
-        $mail->IsSMTP();
-        $mail->CharSet = 'utf-8';
-        $mail->Host = 'smtp.gmail.com';
-        $mail->Port = '465';
-        $mail->SMTPAuth = true;
-        $mail->SMTPSecure = 'ssl';
-        $mail->Username = 'czc';
-        $mail->Password = 'zczxczc';
-        $mail->From = '';
-        $mail->FromName = 'QuangMinh';
-        $mail->AddAddress( $configs->email, $mail->FromName );
-        $mail->AddReplyTo( $configs->email, $mail->FromName );
-        $mail->isHTML(true);
-        $mail->Subject      = $mail->FromName;
-        $mail->Body         = 'Nội Dung Gửi Mail';
-        echo (!$mail->Send()) ? 'Mailer Error: ' . $mail->ErrorInfo : ''; exit();
+        include 'Exception.php';
+        include 'PHPMailer.php';
+        include 'SMTP.php';
+
+        // Instantiation and passing `true` enables exceptions
+        $mail = new PHPMailer(true);
+
+        try {
+            //Server settings
+            $mail->isSMTP(); // 
+            $mail->Host = 'smtp.gmail.com'; // Set the SMTP server to send through
+            $mail->SMTPAuth = true; // Enable SMTP authentication
+            $mail->Username = 'quangminh1575@gmail.com'; // SMTP username
+            $mail->Password = 'mfeihkmmspcumjbg'; // SMTP password
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` also accepted
+            $mail->Port = 587; // TCP port to connect to
+            //Recipients
+            $mail->setFrom('quangminh1575@gmail.com', 'Quang Minh');
+            $mail->addAddress($email, 'Quang Minh'); // Add a recipient
+            $mail->addReplyTo('quangminh1575@gmail.com', 'Reply');
+
+            // Content
+            $mail->isHTML(true);   // Set email format to HTML
+            $mail->Subject = 'Activate your account';
+            $mail->Body = 'Please click on this link <a href="http://localhost/admin/user/active?id=' . $idUser . '" target="_blank">Activate Account</a> to activate account.';
+            $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+            $mail->send();
+            echo 'Message has been sent';
+        } catch (Exception $e) {
+            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+        }
     }
 }
