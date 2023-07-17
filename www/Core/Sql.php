@@ -27,11 +27,11 @@ abstract class Sql{
         return $result;
     }
 
-    public function getDetail($table='', $id=''): array
+    public function getDetail($table='', $id='', $key='id', $status=''): array
     {
         $newTable = ($table != '') ? $table : $this->table;
         $newId = ($id != '') ? $id : $this->getId();
-        $queryPrepared = $this->pdo->prepare('SELECT * FROM '.$newTable.' WHERE id='.$newId);
+        $queryPrepared = $this->pdo->prepare('SELECT * FROM '.$newTable.' WHERE '.$status.$key.'='.$newId);
         $queryPrepared->execute();
         $result = $queryPrepared->fetchAll(\PDO::FETCH_ASSOC);
         return $result;
@@ -74,7 +74,7 @@ abstract class Sql{
         {
             $columnsUpdate = [];
             foreach ($columns as $key=>$value) { $columnsUpdate[]= $key."=:".$key; }
-            $queryPrepared = $this->pdo->prepare('UPDATE '.$this->table.' SET '.implode(",",$columnsUpdate). ' WHERE id='.$this->getId());
+            $queryPrepared = $this->pdo->prepare('UPDATE '.$this->table.' SET '.implode(",",$columnsUpdate).' WHERE id='.$this->getId());
         }else{
             $columnString = implode(',', array_keys($columns));
             $valueString = implode(',', array_fill(0, count($columns), '?'));

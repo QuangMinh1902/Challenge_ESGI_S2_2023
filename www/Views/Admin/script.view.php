@@ -8,7 +8,7 @@
 <script src="assets/js/plugins/jquery.dataTables.min.js"></script>
 <script src="assets/js/plugins/dataTables.bootstrap4.min.js"></script>
 <script src="assets/js/pages/data-basic-custom.js"></script>
-<!-- end-->
+<!-- end -->
 
 <script src="assets/js/plugins/apexcharts.min.js"></script>
 <script src="assets/js/pages/dashboard-main.js"></script>
@@ -58,6 +58,35 @@
 </script>
 
 <script>
+    function getReply(id, title, content, reply) {
+        $('#id_reply').val(id)
+        $('#title_reply').val(title)
+        $('#content_reply').val(content)
+        $('#reply').val(reply)
+    }
+
+    function script_reply() {
+        const id = $('#id_reply').val()
+        const reply = $('#reply').val()
+        if (reply.trim() === '') {
+            alert('Please enter Content')
+            return false;
+        }
+        $.ajax({
+            url: '/admin/<?php echo explode('/', $_SERVER['REQUEST_URI'])[2]; ?>/update',
+            type: 'POST',
+            data: {
+                id,
+                reply
+            },
+            success: function(results) {
+                alert(results);
+            }
+        })
+        return false;
+
+    }
+
     function script_changePassword() {
         const ch_password = $('#ch_password').val();
         const ch_confirm = $('#ch_confirm').val();
@@ -111,7 +140,7 @@
                         $('.alert').text(result);
                     } else {
                         $('.alert').addClass('alert-success');
-                        $('.alert').text('Deleted');
+                        $('.alert').text('Đã xoá');
                         $('#tr_' + id).remove();
                     }
                     setTimeout(() => {
@@ -144,7 +173,7 @@
                         }, 5000);
                     } else {
                         $('.alert').addClass('alert-success');
-                        $('.alert').text('Updated');
+                        $('.alert').text('Đã cập nhật');
                         setTimeout(() => {
                             $('.alert').hide()
                         }, 5000);
@@ -173,7 +202,9 @@
     function to_slug(title, slug) {
         let str = document.getElementById(title).value;
 
+        // Chuyển hết sang chữ thường
         str = str.toLowerCase();
+        // xóa dấu
         str = str.replace(/(à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ)/g, 'a');
         str = str.replace(/(è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ)/g, 'e');
         str = str.replace(/(ì|í|ị|ỉ|ĩ)/g, 'i');
@@ -182,12 +213,17 @@
         str = str.replace(/(ỳ|ý|ỵ|ỷ|ỹ)/g, 'y');
         str = str.replace(/(đ)/g, 'd');
 
+        // Xóa ký tự đặc biệt
         str = str.replace(/([^0-9a-z-\s])/g, '');
 
+        // Xóa khoảng trắng thay bằng ký tự -
         str = str.replace(/(\s+)/g, '-');
 
+        // xóa phần dự - ở đầu
         str = str.replace(/^-+/g, '');
 
+        // xóa phần dư - ở cuối
+        str = str.replace(/-+/g, '-');
         str = str.replace(/-+$/g, '');
 
         document.getElementById(slug).value = str;
