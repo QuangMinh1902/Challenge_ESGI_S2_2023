@@ -4,6 +4,7 @@ session_start();
 use App\Core\View;
 use App\Forms\FormUser;
 use App\Models\User;
+use App\Models\Token;
 use App\Core\Verificator;
 
 use PHPMailer\PHPMailer\PHPMailer;
@@ -20,6 +21,21 @@ class UserController {
             echo 'Please login folow link <a href="/login">Login</a>';
             die;
         }
+
+        // check token
+        $modelToken = new Token();
+        $modelToken->setId($_SESSION["user"]['tokenid']);
+        $row = $modelToken->getDetail();
+
+        if($row[0]['status'] != 1){
+            echo 'Token has expired. Please login folow link <a href="/login">Login</a>';
+            die;
+        }
+        
+        if($row[0]['expirationtime'] < time()){
+            echo 'Token has expired. Please login folow link <a href="/login">Login</a>';
+            die;
+        }
     }
 
     function index(){
@@ -29,7 +45,7 @@ class UserController {
         $view->assign("table", $table);
     }
 
-    function insert(): void {
+    function insert() {
         if(trim($_SESSION["user"]['role']) == 'guest'){
             echo 'You are not enough role';
             die;

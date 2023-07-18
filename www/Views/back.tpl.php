@@ -8,6 +8,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!--Original path-->
     <base href="http://localhost/admin/">
     <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
     <!--  css data table -->

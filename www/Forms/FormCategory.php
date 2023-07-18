@@ -40,21 +40,7 @@ class FormCategory extends AForm {
         );
 
         $option = [
-            // [
-            //     "value" => 0,
-            //     "title" => "",
-            //     "selected" => ""
-            // ],
-            // [
-            //     "value" => "FR",
-            //     "title" => "FR",
-            //     "selected" => ""
-            // ],
-            // [
-            //     "value" => "PL",
-            //     "title" => "PL",
-            //     "selected" => ""
-            // ]
+            
         ];
         
         if($row){
@@ -73,17 +59,7 @@ class FormCategory extends AForm {
             $option = $new_option;
         }
 
-        // $group['parents'] = $this->getElements(
-        //     [
-        //         "id" => "parents",
-        //         "title" => "parents"
-        //     ],
-        //     [
-        //         "type" => "select",
-        //         "options" => $option,
-        //         "error" => "Parents incorrect"
-        //     ]
-        // );
+     
 
         return [
             "config"=>[
