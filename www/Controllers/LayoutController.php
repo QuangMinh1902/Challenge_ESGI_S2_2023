@@ -1,17 +1,23 @@
 <?php
+
 namespace App\Controllers;
+
 session_start();
+
 use App\Core\View;
 use App\Models\Layout;
-class LayoutController{
-    public function index(){
-        $trim_params = trim($_SERVER['REQUEST_URI'],"/");
+
+class LayoutController
+{
+    public function index()
+    {
+        $trim_params = trim($_SERVER['REQUEST_URI'], "/");
         $explode_string = explode(".", $trim_params);
 
         $model = new Layout();
-        $menu = $model->getList('esgi_Menu');
-        $post = $model->getList('esgi_Post', 'id', 'DESC');
-        $comment = [];
+        $menu = $model->getList('esgi_Menu', 'sort', 'ASC', 100, 'WHERE status=true');
+        $post = $model->getList('esgi_Post', 'id', 'DESC', 100, 'WHERE status=true');
+        $conment = [];
 
         $slug = $explode_string[0];
 
@@ -22,43 +28,59 @@ class LayoutController{
         $meta_description = '';
         $id = '';
 
-        if(empty($trim_params))
-        {
-            $h1='Home';
-            $h2='Home Layout';
-            $meta_title = 'Home Page Layout'. " | Quang Minh";
-            $meta_description='Home Page Layout'. " | Quang Minh";
+        if (empty($trim_params)) {
+            $h1 = 'Home';
+            $h2 = 'Home Layout';
+            $meta_title = 'Home Page Layout';
+            $meta_description = 'Home Page Layout';
             $view = new View("Layout/index", "front");
-        }
-        elseif(in_array('html' , $explode_string))
-        {
-            $detail = $model->getDetailSlug('esgi_post', $slug);
-            // var_dump($detail);
-            $id = $detail[0]['id'];
-            $h1 = $detail[0]['title'];
-            $content = $detail[0]['content']??'';
-            $meta_title = $detail[0]['metatitle'];
-            $meta_description=$detail[0]['metadescription'];
 
-            $comment = $model->getDetail('esgi_comment', $id, 'postid', 'status=TRUE AND ');
+            $view->assign("menu", $menu);
+            $view->assign("post", $post);
+            $view->assign("conment", $conment);
+            $view->assign("id", $id);
+            $view->assign("h1", $h1);
+            $view->assign("content", $content);
+            $view->assign("meta_title", $meta_title);
+            $view->assign("meta_description", $meta_description);
+        } elseif (in_array('html', $explode_string)) {
+            $detail = $model->getDetailSlug('esgi_Post', $slug);
+            if (count($detail) > 0) {
+                $id = $detail[0]['id'];
+                $h1 = $detail[0]['title'];
+                $content = $detail[0]['content'] ?? '';
+                $meta_title = $detail[0]['metatitle'];
+                $meta_description = $detail[0]['metadescription'];
 
-            $view = new View("Layout/post", "front");
-        }
-        else{
-            $detail = $model->getDetailSlug('esgi_category', $slug);
-            $h1 = $detail[0]['title'];
-            $meta_title = $detail[0]['title'];
-            $meta_description=$detail[0]['title'];
+                $conment = $model->getDetail('esgi_Comment', $id, 'postid', 'status=TRUE AND ');
 
-            $view = new View("Layout/category", "front");
+                $view = new View("Layout/post", "front");
+
+                $view->assign("menu", $menu);
+                $view->assign("post", $post);
+                $view->assign("conment", $conment);
+                $view->assign("id", $id);
+                $view->assign("h1", $h1);
+                $view->assign("content", $content);
+                $view->assign("meta_title", $meta_title);
+                $view->assign("meta_description", $meta_description);
+            } else {
+                echo 'Page 404';
+            }
+        } else {
+            // $detail = $model->getDetailSlug('esgi_Category', $slug);
+
+            // if(count($detail) > 0){
+            //     $h1 = $detail[0]['title'];
+            //     $meta_title = $detail[0]['title']. " ";
+            //     $meta_description=$detail[0]['title']. " ";
+
+            //     $view = new View("Layout/category", "front");
+            // }
+            // else{
+            //     echo 'Page 404';
+            // }
+            echo 'Page 404';
         }
-        $view->assign("menu", $menu);
-        $view->assign("post", $post);
-        $view->assign("comment", $comment);
-        $view->assign("id", $id);
-        $view->assign("h1", $h1);
-        $view->assign("content", $content);
-        $view->assign("meta_title", $meta_title);
-        $view->assign("meta_description", $meta_description);
     }
 }

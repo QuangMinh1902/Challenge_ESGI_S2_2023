@@ -2,11 +2,11 @@
 namespace App\Controllers;
 session_start();
 use App\Core\View;
-use App\Models\Category;
 use App\Models\Menu;
 use App\Models\Post;
-use App\Models\Token;
 use App\Models\User;
+use App\Models\Token;
+use App\Models\Category;
 
 class DashboardController{
     function index(){
@@ -30,7 +30,6 @@ class DashboardController{
             die;
         }
         $view = new View("Dashboard/index", "back");
-
         $user = new User();
         $category = new Category();
         $menu = new Menu();
@@ -51,7 +50,6 @@ class DashboardController{
         $view->assign("menuPending", $menuPending);
         $view->assign("postActivated", $postActivated);
         $view->assign("postPending", $postPending);
-
     }
 }
 ?>

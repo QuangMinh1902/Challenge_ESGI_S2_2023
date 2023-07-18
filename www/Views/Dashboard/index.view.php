@@ -39,8 +39,7 @@
             <div class="card support-bar overflow-hidden">
                 <a href="/admin/<?php echo $value['link']; ?>/index">
                     <div class="card-body pb-0">
-                        <h2 class="m-0">350</h2>
-                        <span class="text-<?php echo $value['color']; ?>"><?php echo $value['table']; ?> Table</span>
+                        <h2 class="text-<?php echo $value['color']; ?>"><?php echo $value['table']; ?> Table</h2>
                         <p class="mb-3 mt-3">Total data</p>
                     </div>
                     <div class="card-footer bg-<?php echo $value['color']; ?> text-white">
