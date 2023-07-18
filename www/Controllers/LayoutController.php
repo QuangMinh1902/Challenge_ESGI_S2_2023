@@ -32,19 +32,20 @@ class LayoutController{
         }
         elseif(in_array('html' , $explode_string))
         {
-            $detail = $model->getDetailSlug('esgi_Post', $slug);
+            $detail = $model->getDetailSlug('esgi_post', $slug);
+            // var_dump($detail);
             $id = $detail[0]['id'];
             $h1 = $detail[0]['title'];
             $content = $detail[0]['content']??'';
             $meta_title = $detail[0]['metatitle'] . " | Quang Minh";
             $meta_description=$detail[0]['metadescription'] . " | Quang Minh";
 
-            $conment = $model->getDetail('esgi_Comment', $id, 'postid', 'status=TRUE AND ');
+            $conment = $model->getDetail('esgi_comment', $id, 'postid', 'status=TRUE AND ');
 
             $view = new View("Layout/post", "front");
         }
         else{
-            $detail = $model->getDetailSlug('esgi_Category', $slug);
+            $detail = $model->getDetailSlug('esgi_category', $slug);
             $h1 = $detail[0]['title'];
             $meta_title = $detail[0]['title']. " | Quang Minh";
             $meta_description=$detail[0]['title']. " | Quang Minh";
