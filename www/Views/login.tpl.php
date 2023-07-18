@@ -40,10 +40,10 @@
                     },
                     success: function(result) {
                         if (result == 'Logged in successfully') {
-                            alert('Login Successfully!')
+                            alert(result)
                             window.location.href = '/admin/dashboard/index';
                         } else {
-                            alert('Login False!');
+                            alert(result);
                         }
                     }
                 });
