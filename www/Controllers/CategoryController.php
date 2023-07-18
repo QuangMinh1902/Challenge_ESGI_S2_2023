@@ -15,7 +15,7 @@ class CategoryController {
 
         if(empty($_SESSION["user"])){
             echo 'Please login folow link <a href="/login">Login</a>';
-            die;
+            die();
         }
 
         // check token
@@ -25,12 +25,12 @@ class CategoryController {
 
         if($row[0]['status'] != 1){
             echo 'Token has expired. Please login folow link <a href="/login">Login</a>';
-            die;
+            die();
         }
         
         if($row[0]['expirationtime'] < time()){
             echo 'Token has expired. Please login folow link <a href="/login">Login</a>';
-            die;
+            die();
         }
     }
 
@@ -45,7 +45,7 @@ class CategoryController {
     {
         if(trim($_SESSION["user"]['role']) == 'guest'){
             echo 'You are not enough role';
-            die;
+            die();
         }
         $form = new FormCategory();
         $view = new View($this->folder."/form", "back");
@@ -71,7 +71,7 @@ class CategoryController {
     function update(){
         if(trim($_SESSION["user"]['role']) == 'guest'){
             echo 'You are not enough role';
-            die;
+            die();
         }
         $actual_link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP_HOST]";
         $form = new FormCategory();
@@ -96,7 +96,7 @@ class CategoryController {
     function delete(){
         if(trim($_SESSION["user"]['role']) != 'admin'){
             echo 'You are not enough role';
-            die;
+            die();
         }
         $model = new Category();
         $model->setId($_POST["id"]);
@@ -108,7 +108,7 @@ class CategoryController {
     function status(){
         if(trim($_SESSION["user"]['role']) == 'guest'){
             echo 'You are not enough role';
-            die;
+            die();
         }
         $model = new Category();
         $model->setId($_POST["id"]);
@@ -121,7 +121,7 @@ class CategoryController {
     function sort(){
         if(trim($_SESSION["user"]['role']) == 'guest'){
             echo 'You are not enough role';
-            die;
+            die();
         }
         $model = new Category();
         $model->setId($_POST["id"]);

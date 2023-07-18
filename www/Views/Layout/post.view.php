@@ -23,7 +23,7 @@ $model = new Comment();
                 </form>
                 <br>
                 <div class="details">
-                    <?php foreach ($conment as $key => $value) { 
+                    <?php foreach ($comment as $key => $value) { 
                         $user = $model->getDetail('esgi_User', $value['userid']);   
                     ?>
                     <div class="card" style="margin-bottom:20px">

@@ -11,7 +11,7 @@ class LayoutController{
         $model = new Layout();
         $menu = $model->getList('esgi_Menu');
         $post = $model->getList('esgi_Post', 'id', 'DESC');
-        $conment = [];
+        $comment = [];
 
         $slug = $explode_string[0];
 
@@ -37,24 +37,24 @@ class LayoutController{
             $id = $detail[0]['id'];
             $h1 = $detail[0]['title'];
             $content = $detail[0]['content']??'';
-            $meta_title = $detail[0]['metatitle'] . " | Quang Minh";
-            $meta_description=$detail[0]['metadescription'] . " | Quang Minh";
+            $meta_title = $detail[0]['metatitle'];
+            $meta_description=$detail[0]['metadescription'];
 
-            $conment = $model->getDetail('esgi_comment', $id, 'postid', 'status=TRUE AND ');
+            $comment = $model->getDetail('esgi_comment', $id, 'postid', 'status=TRUE AND ');
 
             $view = new View("Layout/post", "front");
         }
         else{
             $detail = $model->getDetailSlug('esgi_category', $slug);
             $h1 = $detail[0]['title'];
-            $meta_title = $detail[0]['title']. " | Quang Minh";
-            $meta_description=$detail[0]['title']. " | Quang Minh";
+            $meta_title = $detail[0]['title'];
+            $meta_description=$detail[0]['title'];
 
             $view = new View("Layout/category", "front");
         }
         $view->assign("menu", $menu);
         $view->assign("post", $post);
-        $view->assign("conment", $conment);
+        $view->assign("comment", $comment);
         $view->assign("id", $id);
         $view->assign("h1", $h1);
         $view->assign("content", $content);
