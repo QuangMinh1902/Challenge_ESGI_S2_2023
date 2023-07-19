@@ -65,22 +65,12 @@ class LayoutController
                 $view->assign("meta_title", $meta_title);
                 $view->assign("meta_description", $meta_description);
             } else {
-                echo 'Page 404';
+                include "Core/404.php";
+                \App\Core\Error::Show404();
             }
         } else {
-            // $detail = $model->getDetailSlug('esgi_Category', $slug);
-
-            // if(count($detail) > 0){
-            //     $h1 = $detail[0]['title'];
-            //     $meta_title = $detail[0]['title']. " ";
-            //     $meta_description=$detail[0]['title']. " ";
-
-            //     $view = new View("Layout/category", "front");
-            // }
-            // else{
-            //     echo 'Page 404';
-            // }
-            echo 'Page 404';
+            include "Core/404.php";
+            \App\Core\Error::Show404();
         }
     }
 }
