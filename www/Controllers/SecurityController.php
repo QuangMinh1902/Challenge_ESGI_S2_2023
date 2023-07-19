@@ -83,7 +83,9 @@ class SecurityController
             ];
             echo 'Logged in successfully';
             return true;
-        }
+        }else{
+            echo 'Password is not correct for this email';
+            return false;
     }
 
     function processregister()
