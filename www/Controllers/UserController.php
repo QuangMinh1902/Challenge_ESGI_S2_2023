@@ -113,6 +113,7 @@ class UserController
             $model->setLastname($lastname);
             $model->setEmail($email);
             $model->setRole($role);
+            $model->setStatus('TRUE');
             $model->setId($_GET['id']);
             $model->save();
 

@@ -24,7 +24,7 @@ $model = new Post();
                                 <th>user</th>
                                 <th>Date Inserted</th>
                                 <th>Active</th>
-                                <th>Function</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
