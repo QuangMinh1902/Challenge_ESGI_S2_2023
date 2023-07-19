@@ -19,7 +19,7 @@ $model = new Category();
                     <table id="simpletable" class="table table-striped table-bordered nowrap text-center">
                         <thead>
                             <tr>
-                                <th>sort</th>
+                                <!-- <th>sort</th> -->
                                 <th>title</th>
                                 <th>user</th>
                                 <th>Date Inserted</th>
@@ -33,14 +33,14 @@ $model = new Category();
                                 $user = $model->getDetail('esgi_User', $value['userid']);
                             ?>
                             <tr id="tr_<?php echo $value['id']; ?>">
-                                <td>
+                                <!-- <td>
                                     <select class="form-select" id="sort_<?php echo $value['id']; ?>" onchange="updateSort('<?php echo $value['id']; ?>')">
                                         <?php for ($i=1; $i <= $total; $i++) { 
                                             $selected = ($i == $value['sort']) ? 'selected' : '';
                                             echo '<option value="'.$i.'" '.$selected.'>'.$i.'</option>';
                                         } ?>
                                     </select>    
-                                </td>
+                                </td> -->
                                 <td><?php echo $value['title']; ?></td>
                                 <td><?php echo ($user) ? '<span class="badge bg-success">'.$user[0]['firstname'].' '.$user[0]['lastname'].'</span>':''; ?></td>
                                 <td><?php $date = explode(' ', $value['date_inserted']); echo $date[0]; ?></td>

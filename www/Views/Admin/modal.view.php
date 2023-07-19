@@ -11,7 +11,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label class="form-label text-danger">Title</label>
+                            <label class="form-label text-danger">Commentor</label>
                             <input type="text" class="form-control" id="title_reply">
                         </div>
                         <div class="form-group">
