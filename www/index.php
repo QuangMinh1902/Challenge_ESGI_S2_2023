@@ -12,29 +12,12 @@ spl_autoload_register(function ($class) {
     }
 });
 
-//Récupérer dans l'url l'uri /login ou /user/toto
-//Nettoyer la donnée
-//S'il y a des paramètres dans l'url il faut les enlever :
+
 $uriExploded = explode("?",$_SERVER["REQUEST_URI"]);
 $uri = rtrim(strtolower(trim($uriExploded[0])),"/");
-//Dans le cas ou nous sommes à la racine $uri sera vide du coup je remets /
 $uri = (empty($uri))?"/":$uri;
 
-//Créer un fichier yaml contenant le route du type :
-// /login:
-//      controller: Security
-//      action: login
-//Le fichier est dans www et porte le nom de routes.yml
 
-//En fonction de l'uri récupérer le controller et l'action
-//Effectuer toutes les vérifications que vous estimez nécessaires
-//En cas d'erreur effectuer un simple Die avec un message explicite
-//Dans le cas ou tout est bon créer une instance du controller
-//et appeler la methode action
-
-//Exemple :
-// $controller = new Security();
-// $controller->login();
 
 if(!file_exists("routes.yml")) {
     die("Le fichier de routing n'existe pas");
@@ -42,6 +25,7 @@ if(!file_exists("routes.yml")) {
 
 $routes = yaml_parse_file("routes.yml");
 
+// Not found url in routes.yml
 if(empty($routes[$uri])) {
     $routes[$uri]["controller"] = 'LayoutController';
     $routes[$uri]["action"] = 'index';
