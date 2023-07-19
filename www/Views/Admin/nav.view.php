@@ -1,7 +1,7 @@
 <nav class="pcoded-navbar menu-light ">
     <div class="navbar-wrapper  ">
-        <div class="navbar-content scroll-div " >
-            
+        <div class="navbar-content scroll-div ">
+
             <div class="">
                 <div class="main-menu-header">
                     <img class="img-radius" src="assets/images/user/avatar-2.jpg" alt="User-Profile-Image">
@@ -28,36 +28,35 @@
                     </ul>
                 </div>
             </div>
-            
+
             <?php
-                $nav = [
-                    array("title"=>"Dashboard", "icon"=>"home", "link"=>"dashboard"),
-                    array("title"=>"Category", "icon"=>"menu", "link"=>"category"),
-                    array("title"=>"Post", "icon"=>"globe", "link"=>"post"),
-                    array("title"=>"Menu", "icon"=>"navigation", "link"=>"menu"),
-                    // array("title"=>"Configs", "icon"=>"settings", "link"=>"configs"),
-                ];
-                if(trim($_SESSION["user"]['role'], ' ') == 'admin'){
-                    array_push($nav, array("title"=>"Comment", "icon"=>"mail", "link"=>"comment"));
-                    array_push($nav, array("title"=>"User", "icon"=>"users", "link"=>"user"));
-                }
+            $nav = [
+                array("title" => "Dashboard", "icon" => "home", "link" => "dashboard"),
+                array("title" => "Category", "icon" => "menu", "link" => "category"),
+                array("title" => "Post", "icon" => "globe", "link" => "post"),
+                array("title" => "Menu", "icon" => "navigation", "link" => "menu"),
+                array("title" => "Comment", "icon" => "mail", "link" => "comment")
+            ];
+            if (trim($_SESSION["user"]['role'], ' ') == 'admin') {
+                array_push($nav, array("title" => "User", "icon" => "users", "link" => "user"));
+            }
             ?>
             <ul class="nav pcoded-inner-navbar ">
                 <li class="nav-item pcoded-menu-caption"></li>
                 <?php
-                    $str='';
-                    foreach ($nav as $key => $value) {
-                        $str .= '<li class="nav-item pcoded-hasmenu">';
-                            $str .= '<a href="'.$value['link'].'/index" class="nav-link ">';
-                                $str .= '<span class="pcoded-micon"><i class="feather icon-'.$value['icon'].'"></i></span>';
-                                $str .= '<span class="pcoded-mtext">'.$value['title'].'</span>';
-                            $str .= '</a>';
-                        $str .= '</li>';
-                    }
-                    echo $str;
+                $str = '';
+                foreach ($nav as $key => $value) {
+                    $str .= '<li class="nav-item pcoded-hasmenu">';
+                    $str .= '<a href="' . $value['link'] . '/index" class="nav-link ">';
+                    $str .= '<span class="pcoded-micon"><i class="feather icon-' . $value['icon'] . '"></i></span>';
+                    $str .= '<span class="pcoded-mtext">' . $value['title'] . '</span>';
+                    $str .= '</a>';
+                    $str .= '</li>';
+                }
+                echo $str;
                 ?>
             </ul>
-            
+
         </div>
     </div>
 </nav>
