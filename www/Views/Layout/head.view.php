@@ -3,6 +3,7 @@
 <meta name="description" content="<?php echo $meta_description; ?>" />
 <meta name="author" content="" />
 <title><?php echo $meta_title; ?></title>
+<link rel="canonical" href= "<?php echo $canonical; ?>"/>
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 <!-- Font Awesome icons (free version)-->
 <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>

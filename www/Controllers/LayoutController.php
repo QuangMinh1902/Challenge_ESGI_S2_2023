@@ -51,6 +51,7 @@ class LayoutController
                 $content = $detail[0]['content'] ?? '';
                 $meta_title = $detail[0]['metatitle'];
                 $meta_description = $detail[0]['metadescription'];
+                $canonical = $detail[0]['canonical'];
 
                 $conment = $model->getDetail('esgi_Comment', $id, 'postid', 'status=TRUE AND ');
 
@@ -64,6 +65,7 @@ class LayoutController
                 $view->assign("content", $content);
                 $view->assign("meta_title", $meta_title);
                 $view->assign("meta_description", $meta_description);
+                $view->assign("canonical", $canonical);
             } else {
                 include "Core/404.php";
                 \App\Core\Error::Show404();
