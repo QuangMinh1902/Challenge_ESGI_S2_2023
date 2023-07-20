@@ -13,7 +13,7 @@
                                 <div class="form-group">
                                     <label class="form-label"><?php echo $value['labels']['title']; ?></label>
                                     <select class="form-control" name="<?php echo $key; ?>">
-                                        <label value>Choose</label>
+                                        <!-- <label value>Choose</label> -->
                                         <?php foreach ($value['elements']['options'] as $option):?>
                                             <option value="<?php echo $option['value'];?>" <?php echo $option['selected'];?>><?php echo $option['title'];?></option>
                                         <?php endforeach;?>
@@ -28,7 +28,7 @@
                                     </label>
                                     <input 
                                         type="<?php echo $value['elements']['type']; ?>" 
-                                        class="form-control" 
+                                        class="form-control"
                                         name="<?php echo $key; ?>" 
                                         value="<?php echo $value['elements']['value']; ?>"
                                         <?php echo $value['elements']['required']; ?>

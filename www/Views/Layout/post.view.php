@@ -1,5 +1,7 @@
 <?php
+
 use App\Models\Comment;
+
 $model = new Comment();
 ?>
 <article class="mb-4">
@@ -23,18 +25,18 @@ $model = new Comment();
                 </form>
                 <br>
                 <div class="details">
-                    <?php foreach ($conment as $key => $value) { 
-                        $user = $model->getDetail('esgi_User', $value['userid']);   
+                    <?php foreach ($conment as $key => $value) {
+                        $user = $model->getDetail('esgi_User', $value['userid']);
                     ?>
-                    <div class="card" style="margin-bottom:20px">
-                        <div class="card-header">Name: <b><?php echo $value['title']; ?></b></div>
-                        <div class="card-body">Question: <?php echo $value['content']; ?></div>
-                        <?php if(count($user)>0){ ?>
-                        <div class="card-header text-success">Name: <b><?php echo $user[0]['firstname'].' '.$user[0]['lastname']; ?></b></div>
-                        <div class="card-body text-success">Reply: <?php echo $value['reply']; ?></div> 
-                        <?php }?>
-                    </div>
-                    <?php }?>
+                        <div class="card" style="margin-bottom:20px">
+                            <div class="card-header">Name: <b><?php echo $value['title']; ?></b></div>
+                            <div class="card-body">Question: <?php echo $value['content']; ?></div>
+                            <?php if (count($user) > 0) { ?>
+                                <div class="card-header text-success">Name: <b><?php echo $user[0]['firstname'] . ' ' . $user[0]['lastname']; ?></b></div>
+                                <div class="card-body text-success">Reply: <?php echo $value['reply']; ?></div>
+                            <?php } ?>
+                        </div>
+                    <?php } ?>
                 </div>
             </div>
         </div>
@@ -42,29 +44,42 @@ $model = new Comment();
 </article>
 
 <?php
-    if(isset($_SESSION['user'])){
+if (isset($_SESSION['user'])) {
 ?>
 
+    <style>
+        .edit {
+            position: fixed;
+            bottom: 10%;
+            left: 1%;
+            border: 1px solid black;
+            border-radius: 10px;
+            padding: 20px;
+            background: black;
+            color: white;
+            font-size: 16px;
+            text-transform: uppercase;
+        }
+
+        .edit:hover {
+            color: yellow;
+        }
+    </style>
+
+    <a href="/admin/post/update?id=<?php echo $id; ?>" class="edit" target="_blank">
+        Edit
+    </a>
+
+<?php } ?>
+
+
 <style>
-    .edit{
-        position:fixed;
-        bottom:10%;
-        left:1%;
-        border:1px solid black;
-        border-radius:10px;
-        padding:20px;
-        background:black;
-        color:white;
-        font-size:16px;
-        text-transform:uppercase;
-    }
-    .edit:hover{
-        color: yellow;
+    .back-to-top {
+        position: fixed;
+        bottom: 25px;
+        right: 25px;
+        display: none;
     }
 </style>
 
-<a href="/admin/post/update?id=<?php echo $id; ?>" class="edit" target="_blank">
-    Edit
-</a>
-
-<?php } ?>
+<a id="back-to-top" href="#" class="btn btn-dark btn-lg back-to-top" role="button"><i class="fas fa-chevron-up"></i></a>
