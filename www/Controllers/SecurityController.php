@@ -176,4 +176,118 @@ class SecurityController
             echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
         }
     }
+
+    function response($code = 200, $field = '', $data = [])
+    {
+        $alert = '';
+        $message = 'Error';
+        switch ($code) {
+            case 200:
+                $alert = 'Register successfully!';
+                $message = 'Success';
+                break;
+            case 600:
+                $alert = $field . ' cannot be empty!';
+                break;
+            case 601:
+                $alert = $field . ' invalidate!';
+                break;
+            case 602:
+                $alert = $field . ' is at least 5 characters!';
+                break;
+            case 603:
+                $alert = $field . ' is at most 30 characters!';
+                break;
+            case 604:
+                $alert = $field . ' had exist!';
+                break;
+            case 610:
+                $alert = $field . ' cannot be empty!';
+                break;
+
+            default:
+                $alert = 'No code';
+                break;
+        }
+
+        $result = [
+            'code' => $code,
+            'message' => $message,
+            'response' => ["alert" => $alert, "data" => $data]
+        ];
+        return print_r(json_encode($result));
+    }
+
+    function api_register()
+    {
+        if (count($_POST) == 0) {
+            $this->response(610, 'Field');
+            return false;
+        }
+
+        if (empty(trim($_POST['firstname']))) {
+            $this->response(600, 'Firstname');
+            return false;
+        }
+
+        if (empty(trim($_POST['lastname']))) {
+            $this->response(600, 'Lastname');
+            return false;
+        }
+
+        if (empty(trim($_POST['email']))) {
+            $this->response(600, 'Email');
+            return false;
+        }
+
+        if (!filter_var(trim($_POST['email']), FILTER_VALIDATE_EMAIL)) {
+            $this->response(601, 'Email');
+            return false;
+        }
+
+        if (empty(trim($_POST['password']))) {
+            $this->response(600, 'Password');
+            return false;
+        }
+
+        if (strlen(trim($_POST['password'])) <= 5) {
+            $this->response(602, 'Password');
+            return false;
+        }
+
+        if (strlen(trim($_POST['password'])) > 30) {
+            $this->response(603, 'Password');
+            return false;
+        }
+
+        $model = new User();
+        $model->setEmail(trim($_POST['email']));
+
+        $check_email = $model->checkEmailExist();
+        if (count($check_email) != 0) {
+            $this->response(604, 'Email');
+            return false;
+        }
+
+        $model->setFirstname(trim($_POST['firstname']));
+        $model->setLastname(trim($_POST['lastname']));
+        $model->setPassword(trim($_POST['password']));
+        $model->setRole('user');
+        $model->save();
+
+        $newData = $model->getList('', 'id', 'DESC', 1);
+        $idUser = $newData[0]['id'];
+
+        $this->send_email($idUser, trim($_POST['email']));
+
+        $this->response(200, '', [
+            "id" => $idUser,
+            "firstname" => trim($newData[0]['firstname']),
+            "lastname" => trim($newData[0]['lastname']),
+            "email" => trim($newData[0]['email']),
+            "status" => trim($newData[0]['status']),
+            "role" => trim($newData[0]['role']),
+            "date_inserted" => trim($newData[0]['date_inserted']),
+        ]);
+    }
 }
