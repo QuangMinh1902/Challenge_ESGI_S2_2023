@@ -85,7 +85,8 @@ class UserController
             $idUser = $newData[0]['id'];
 
             $this->send_email($idUser, $email);
-
+            //  var_dump(URL . '/admin/' . strtolower($this->folder) . '/index'); 
+            // die();
             header('Location: ' . URL . '/admin/' . strtolower($this->folder) . '/index');
             exit();
         }

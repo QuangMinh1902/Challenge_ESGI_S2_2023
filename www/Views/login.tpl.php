@@ -30,7 +30,7 @@
                 e.preventDefault();
                 const email = $('#Email').val()
                 const password = $('#Password').val()
-                // gửi ajax
+                // send ajax
                 $.ajax({
                     url: '/processlogin',
                     type: 'POST',

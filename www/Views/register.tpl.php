@@ -58,7 +58,7 @@
             if (password.trim() != re_password.trim()) {
                 alert('Password is different Re_Password!')
             }
-            // gửi ajax
+            // send ajax
             $.ajax({
                 url: '/processregister',
                 type: 'POST',

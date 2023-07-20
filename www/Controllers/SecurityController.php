@@ -107,14 +107,13 @@ class SecurityController
         $model->setFirstname($firstname);
         $model->setLastname($lastname);
         $model->setPassword(trim($password));
-        $model->setRole('user');
+        $model->setRole('blogger');
 
         $model->save();
 
         // send mail
         $newData = $model->getList('', 'id', 'DESC', 1); // Get data just add
         $idUser = $newData[0]['id'];
-
         $this->send_email($idUser, $email);
 
         echo 'Register in successfully';
