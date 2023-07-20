@@ -32,13 +32,14 @@
             <?php
             $nav = [
                 array("title" => "Dashboard", "icon" => "home", "link" => "dashboard"),
-                array("title" => "Category", "icon" => "menu", "link" => "category"),
                 array("title" => "Post", "icon" => "globe", "link" => "post"),
-                array("title" => "Menu", "icon" => "navigation", "link" => "menu"),
                 array("title" => "Comment", "icon" => "mail", "link" => "comment")
             ];
+
             if (trim($_SESSION["user"]['role'], ' ') == 'admin') {
                 array_push($nav, array("title" => "User", "icon" => "users", "link" => "user"));
+                array_push($nav, array("title" => "Category", "icon" => "menu", "link" => "category"));
+                array_push($nav, array("title" => "Menu", "icon" => "navigation", "link" => "menu"));
             }
             ?>
             <ul class="nav pcoded-inner-navbar ">

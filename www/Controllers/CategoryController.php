@@ -45,7 +45,7 @@ class CategoryController {
 
     function insert()
     {
-        if(trim($_SESSION["user"]['role']) == 'guest'){
+        if(trim($_SESSION["user"]['role']) != 'admin'){
             echo 'You are not enough role';
             die;
         }

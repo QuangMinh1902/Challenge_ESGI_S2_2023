@@ -64,6 +64,7 @@ class UserController
         $form = new FormUser();
         $view = new View($this->folder . "/form", "back");
         $view->assign('form', $form->getConfig());
+        
         if ($form->isSubmit()) {
             $firstname = $_POST["firstname"];
             $lastname = $_POST["lastname"];
@@ -101,6 +102,7 @@ class UserController
         $model = new User();
         $model->setId($_GET['id']);
         $row = $model->getDetail();
+        $userStatus = $row[0]['status'];
         $view = new View($this->folder . "/form", "back");
         $view->assign('form', $form->getConfig($row));
         if ($form->isSubmit()) {
@@ -108,12 +110,11 @@ class UserController
             $lastname = $_POST["lastname"];
             $email = $_POST["email"];
             $role = $_POST["role"];
-
             $model->setFirstname($firstname);
             $model->setLastname($lastname);
             $model->setEmail($email);
             $model->setRole($role);
-            $model->setStatus('TRUE');
+            $model->setStatus($userStatus);
             $model->setId($_GET['id']);
             $model->save();
 

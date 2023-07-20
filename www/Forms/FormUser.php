@@ -74,7 +74,7 @@ class FormUser extends AForm {
                 'selected' => ''
             ],
             [
-                'value' => 'user',
+                'value' => 'blogger',
                 'title' => 'Blogger', // add and edit role
                 'selected' => 'selected'
             ],
