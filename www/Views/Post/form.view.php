@@ -26,7 +26,7 @@
                                         <label class="form-label">
                                             <?php echo $value['labels']['title']; ?>
                                         </label>
-                                        <textarea class="form-control" name="<?php echo $key; ?>" id="<?php echo $key; ?>" rows="2"><?php echo $value['elements']['value']; ?></textarea>
+                                        <textarea class="form-control" name="<?php echo $key; ?>" id="<?php echo $key; ?>" rows="2" min="<?php echo $value['elements']['min']; ?>" max="<?php echo $value['elements']['max']; ?>"><?php echo $value['elements']['value']; ?></textarea>
                                     </div>
                                 </div>
                             <?php else : ?>
@@ -35,7 +35,7 @@
                                         <label class="form-label">
                                             <?php echo $value['labels']['title']; ?>
                                         </label>
-                                        <input type="<?php echo $value['elements']['type']; ?>" class="form-control" name="<?php echo $key; ?>" id="<?php echo $key; ?>" value="<?php echo $value['elements']['value']; ?>" <?php if ($value['elements']['event'] == 'onkeyup') { ?> onkeyup="to_slug('title', 'slug')" <?php } ?> <?php echo $value['elements']['required']; ?> placeholder="<?php echo $value['labels']['title']; ?>">
+                                        <input type="<?php echo $value['elements']['type']; ?>" class="form-control" name="<?php echo $key; ?>" id="<?php echo $key; ?>" value="<?php echo $value['elements']['value']; ?>" <?php if ($value['elements']['event'] == 'onkeyup') { ?> onkeyup="to_slug('title', 'slug')" <?php } ?> <?php echo $value['elements']['required']; ?> placeholder="<?php echo $value['labels']['title']; ?>"  min="<?php echo $value['elements']['min']; ?>" max="<?php echo $value['elements']['max']; ?>">
                                     </div>
                                 </div>
                             <?php endif; ?>
