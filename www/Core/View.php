@@ -43,4 +43,20 @@ class View {
         include $this->template;
     }
 
+
+    /**
+     * Get the value of view
+     */ 
+    public function getView()
+    {
+        return $this->view;
+    }
+
+    /**
+     * Get the value of template
+     */ 
+    public function getTemplate()
+    {
+        return $this->template;
+    }
 }

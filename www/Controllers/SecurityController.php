@@ -25,6 +25,7 @@ class SecurityController
     function register()
     {
         $view = new View("User/register", "register");
+        // var_dump($view->getView());
     }
 
     function generateToken()

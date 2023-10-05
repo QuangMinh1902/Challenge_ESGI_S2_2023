@@ -26,7 +26,7 @@
 </head>
 
 <!-- [ auth-signup ] start -->
-<?php include "User/register.view.php"; ?>
+<?php include $this->view; ?>
 <!-- [ auth-signup ] end -->
 
 <!-- Required Js -->
